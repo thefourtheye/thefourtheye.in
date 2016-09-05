@@ -19,6 +19,7 @@ function addSidebarToggler() {
       e.preventDefault();
       $('body').toggleClass('collapse-sidebar');
     });
+    $('.toggle-sidebar').click();
   }
   var sections = $('aside.sidebar > section');
   if (sections.length > 1) {
