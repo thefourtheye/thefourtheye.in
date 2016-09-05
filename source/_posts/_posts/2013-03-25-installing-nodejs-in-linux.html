@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Installing node.js in Linux"
+date: 2013-03-25T20:59:00+05:30
+---
+
+<div class='post'>
+<div dir="ltr" style="text-align: left;" trbidi="on">I tested these steps in RHEL 5.4 and Ubuntu 12.10.<br /><br /><ol style="text-align: left;"><li>wget http://nodejs.org/dist/v0.10.1/node-v0.10.1.tar.gz</li><li>tar -xvf node-v0.10.1.tar.gz</li><li>cd node-v0.10.1</li><li>./configure --prefix=&lt;a directory to which you have write and execute access&gt;</li><li>make</li><li>make install</li><li>Create a file, say Test.js and add the following lines to it<br /><span style="font-family: &quot;Courier New&quot;,Courier,monospace;">var http = require('http');<br /><br />http.createServer(function (request, response) {<br />&nbsp; response.writeHead(200, {'Content-Type': 'text/plain'});<br />&nbsp; response.end('Hello World\n');<br />}).listen(8124);<br /><br />console.log('Server running at http://127.0.0.1:8124/');</span></li><li>node Test.js</li><li>Open a browser and visit http://127.0.0.1:8124/. If all went fine, you should see Hello World in the browser.</li></ol><div style="text-align: left;">It is as simple as that. I did not hit any road block at all. They all went fine.</div></div></div>

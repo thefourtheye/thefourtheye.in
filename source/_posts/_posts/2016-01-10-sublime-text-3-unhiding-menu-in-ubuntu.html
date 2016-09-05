@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Sublime Text 3 unhiding menu in Ubuntu - simpler solution"
+date: 2016-01-10T20:44:00+05:30
+---
+
+<div class='post'>
+<div dir="ltr" style="text-align: left;" trbidi="on">The method which I mentioned in this <a href="http://www.thefourtheye.in/2014/01/un-hiding-menu-bar-in-sublime-text-3.html">blog post of mine</a>, solves the problem, but then you have to<br /><ol><li> Close the Sublime Text<br /><li> Fire up a terminal<br /><li> Execute a command or two<br /><li> Open Sublime Text again<br /></ol>Quite a lot of steps to do. But then I found a simpler solution today and it works like a charm for me. The solution is to use "Keyboard Shortcuts" :-) Let me explain in detail.  <ol><li> Click <code>Preferences</code> -> <code>Key Bindings - User</code><br /><li> In the window that opens, you need to add a new keyboard shortcut for the command "toggle_menu". For example, this is how my shortcuts looks like<br /><pre>[{"keys": ["ctrl+\\"], "command": "toggle_side_bar"},<br /> {"keys": ["ctrl+shift+m"], "command": "toggle_menu"}]</pre><li> Save the file and start doing your happy dance.<br /></ol>Now, you can simply press the keyboard shortcut whatever you choose to assign to toggle menu :-)  </div></div>

@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Ubuntu Nvidia Driver Installation"
+date: 2013-05-02T20:32:00+05:30
+---
+
+<div class='post'>
+<div dir="ltr" style="text-align: left;" trbidi="on">Following are the steps to install Ubuntu Nvidia drivers and activating it.<br /><br /><pre class="prettyprint">sudo apt-get install linux-headers-$(uname -r)<br />sudo apt-get install nvidia-310<br />sudo apt-get install nvidia-313-updates<br />sudo apt-get install nvidia-settings<br /></pre>Once the instllation of the above mentioned packages are successful, run<br /><pre class="prettyprint">sudo nvidia-xconfig<br /></pre>This will create the /etc/X11/xorg.conf file<br /><br />Now, do<br /><pre class="prettyprint">sudo software-properties-gtk<br /></pre><br />Which will open up a window like this<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://i.stack.imgur.com/KvijW.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://i.stack.imgur.com/KvijW.png" /></a></div><br />Select the latest driver name from the list and then do<br /><br /><pre class="prettyprint">sudo reboot<br /></pre><br />That's it :)<br /><br /></div></div>

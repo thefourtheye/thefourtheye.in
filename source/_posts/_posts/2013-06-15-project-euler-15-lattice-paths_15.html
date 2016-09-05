@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Project Euler - 15 - Lattice paths"
+date: 2013-06-15T21:22:00+05:30
+---
+
+<div class='post'>
+<div dir="ltr" style="text-align: left;" trbidi="on">In this post we are dealing with <a href="http://projecteuler.net/problem=15">Project Euler - 15 - Lattice paths</a>. This is one of the simple dynamic programming problems. We have to find the number of paths to reach the bottom right from the top left, moving only downwards and right sidewards. It was not so easy for me to see the solution even for the sample data given. It would be easy when we look from the bottom-left. For the sample 2x2 grid, lets say the bottom-left (2, 2) point has 0 path and 1,2 and 2,1 have 1 path each. It is evident that number of paths to reach (2, 2) from all the points on the bottom most row (0, 2), (1, 2) and the right most column (2, 0), (2, 1), as we cannot move upwards and left sidewards. Now, (1, 1) has two paths to reach (2, 2), either through (1, 2) or (2, 1). So it has the value 2. Same way, (0, 1) and (1, 0) have 3 ways ( (0, 1) can take (1, 1) (which has 2 paths to (2, 2) ) and (0, 2) (which has 1 path to (2, 2) ). So, (0, 0) has 6 paths to (2, 2) either via (0, 1) or via (1, 0). Applied this idea as a dynamic programming program and it solved this problem.<br /><pre class="prettyprint">Total = 21<br /><br />Array = [[0]*Total for i in xrange(Total)]<br />for i in xrange(Total): Array[i][Total - 1], Array[Total - 1][i] = 1, 1   #Initializing bottom row and right column with 1<br /><br />def Rec(i, j):<br />    global Array<br />    if Array[i][j]: return Array[i][j]<br />    Rec(i+1, j)<br />    Rec(i, j+1)<br />    Array[i][j] = Array[i+1][j] + Array[i][j+1]<br /><br />Rec (0, 0)<br />print Array[0][0]<br /></pre></div></div>
