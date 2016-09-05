@@ -14,6 +14,7 @@ core collaborators and an active answerer in stackoverflow, with 115k+ reputatio
 My languages of choice would be Python and JavaScript. Favourite hang out places in the
 internet are stackoverflow's
 [Python chat room](http://chat.stackoverflow.com/rooms/6/python) and #node-dev IRC channel.
+I organize the [Node.js Chennai meetup](https://www.meetup.com/nodejs-Chennai/) events.
 
 My Profiles in other websites:
 
@@ -21,3 +22,4 @@ My Profiles in other websites:
    * [Twitter](https://twitter.com/dFourthi)
    * [GitHub](https://github.com/thefourtheye/)
    * [stackoverflow](http://stackoverflow.com/users/1903116/thefourtheye)
+   * [Linkedin](https://in.linkedin.com/in/sakthipriyan)
