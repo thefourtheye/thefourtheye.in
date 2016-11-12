@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "about me"
-date: 2016-09-05 19:55
 comments: false
 sharing: false
 footer: false
@@ -19,7 +18,5 @@ My Profiles in other websites:
    * [Facebook](https://www.facebook.com/sakthipriyan?fref=ts)
    * [Twitter](https://twitter.com/dFourthi)
    * [GitHub](https://github.com/thefourtheye/)
-   * <a href="http://stackexchange.com/users/1219964/thefourtheye?tab=accounts">
-   <img src="http://stackexchange.com/users/flair/1219964.png" width="208" height="58" alt="profile for thefourtheye on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for thefourtheye on Stack Exchange, a network of free, community-driven Q&amp;A sites">
-   </a>
+   * [Stackoverflow](http://stackoverflow.com/users/1903116/thefourtheye)
    * [Linkedin](https://in.linkedin.com/in/sakthipriyan)
