@@ -263,7 +263,7 @@ multitask :push do
     system "git add -A"
     message = "Site updated at #{Time.now.utc}"
     puts "\n## Committing: #{message}"
-    system "git commit -m \"#{message}\""
+    system "git commit -S -m \"#{message}\""
     puts "\n## Pushing generated #{deploy_dir} website"
     Bundler.with_clean_env { system "git push origin #{deploy_branch}" }
     puts "\n## Github Pages deploy complete"
