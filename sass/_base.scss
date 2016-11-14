@@ -4,7 +4,7 @@
 @import "base/typography";
 @import "base/layout";
 
-table.gridtable {
+.gridtable {
   margin-left: auto;
   margin-right: auto;
 	color:#333333;
@@ -12,7 +12,7 @@ table.gridtable {
 	border-color: #666666;
 	border-collapse: collapse;
 }
-table.gridtable th {
+.gridtable th {
 	border-width: 1px;
 	padding: 10px;
 	border-style: solid;
@@ -21,7 +21,7 @@ table.gridtable th {
   font-weight: bold;
   text-align: center
 }
-table.gridtable td {
+.gridtable td {
 	border-width: 1px;
 	padding: 10px;
 	border-style: solid;

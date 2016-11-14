@@ -34,11 +34,17 @@ plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
 markdown: kramdown
-rdiscount:
+kramdown:
+  input: GFM
   extensions:
+    - with_toc_data
+    - fenced_code_blocks
     - autolink
     - footnotes
+    - no_intra_emphasis
     - smart
+    - tables
+    - toc
 highlighter: pygments # default python pygments have been replaced by pygments.rb
 
 paginate: 5          # Posts per page on the blog index
