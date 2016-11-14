@@ -15,8 +15,13 @@ I organize the [Node.js Chennai meetup](https://www.meetup.com/nodejs-Chennai/) 
 
 My Profiles in other websites:
 
-   * [Facebook](https://www.facebook.com/sakthipriyan?fref=ts)
-   * [Twitter](https://twitter.com/dFourthi)
-   * [GitHub](https://github.com/thefourtheye/)
-   * [Stackoverflow](http://stackoverflow.com/users/1903116/thefourtheye)
-   * [Linkedin](https://in.linkedin.com/in/sakthipriyan)
+{:.gridtable}
+| Website | My profile |
+|---------|
+| Facebook | [https://www.facebook.com/sakthipriyan?fref=ts]() |
+|---------|
+| Twitter | [https://twitter.com/dFourthi]() |
+| GitHub | [https://github.com/thefourtheye/]() |
+| Stack Exchange | [![](http://stackexchange.com/users/flair/1219964.png)](http://stackexchange.com/users/1219964?tab=accounts) |
+| Linkedin | [https://in.linkedin.com/in/sakthipriyan]() |
+|=========|
