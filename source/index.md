@@ -4,7 +4,7 @@ title: "about me"
 comments: false
 sharing: false
 footer: false
-sidebar: false
+sidebar: true
 ---
 
 My name is Sakthipriyan Vairamani (thefourtheye). I am [one of the Node.js Core Technical Committee members](https://github.com/nodejs/node#ctc-core-technical-committee)
