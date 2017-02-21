@@ -5,7 +5,7 @@
 .highlight .line-numbers, html .gist .gist-file .gist-syntax .highlight .line_numbers {
   text-align: right;
   font-size: 17px;
-  line-height: 1.45em;
+  line-height: 2.5em;
   @if $solarized == light {
     background: lighten($base03, 1) $noise-bg !important;
     border-right: 1px solid darken($base02, 2) !important;
@@ -121,7 +121,7 @@ p, li {
   display: block;
   padding: .8em;
   overflow-x: auto;
-  line-height: 1.45em;
+  line-height: 2.5em;
   background: $base03 $noise-bg !important;
   color: $base1 !important;
   span { color: $base1 !important; }
@@ -235,7 +235,7 @@ figure.code {
 .code-title {
   text-align: center;
   font-size: 17px;
-  line-height: 2em;
+  line-height: 2.5em;
   text-shadow: #cbcccc 0 1px 0;
   color: #474747;
   font-weight: normal;
