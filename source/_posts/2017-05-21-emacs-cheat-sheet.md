@@ -60,3 +60,27 @@ This cheat sheet has a few more key combinations which are used to do common ope
 | `C-n` | Next line |
 | `C-p` | Previous line |
 | `C-l` | Move the current line to bottom, middle, and start of screen |
+
+## Edit Operations
+
+{:.gridtable}
+| Key Combinations | Functionality |
+|-----|
+| `C-x u` `C-/` | Undo last operation
+| `C-k` | Delete till the end of the current line from current position |
+| `M-k` | Delete till the end of the current sentence from current position |
+| `C-d` | Delete the next character |
+| `M-d` | Delete the next word |
+| `C-<Del>` | Delete the previous character |
+| `M-<Del>` | Delete the previous word |
+
+## Copy and Paste
+
+{:.gridtable}
+| Key Combinations | Functionality |
+|-----|
+| `C-<Space>` | Set mark to select text. Now with movement keys select the text |
+| `C-x h` | Select the whole buffer |
+| `C-w` | Cut the selected text |
+| `M-w` | Copy the selected text |
+| `C-y` | Yank (paste) the selected text |
