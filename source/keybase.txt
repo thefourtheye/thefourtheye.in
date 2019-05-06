@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/thefourtheye
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://thefourtheye.in
+  * I am thefourtheye (https://keybase.io/thefourtheye) on keybase.
+  * I have a public key ASDZv6tKPo-qYEe9RD-BdM4S4YvlvxMPrsPUAgzyCmxLAwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120d9bfab4a3e8faa6047bd443f8174ce12e18be5bf130faec3d4020cf20a6c4b030a",
+      "host": "keybase.io",
+      "kid": "0120d9bfab4a3e8faa6047bd443f8174ce12e18be5bf130faec3d4020cf20a6c4b030a",
+      "uid": "05b412e798ea408eb3eaaca8f81d3819",
+      "username": "thefourtheye"
+    },
+    "merkle_root": {
+      "ctime": 1557116768,
+      "hash": "b157390f82dcf2266cab63910b020eba378095599a4e6b1014a17fe4a165ada0a17e8f1f06cd5be319c9b94eabecc207526e4a588224adf1d41f7661d38d2ec8",
+      "hash_meta": "eb24f9049f46b683feb9f095078097dfbf08b99fb449804addd865df2fcce43d",
+      "seqno": 5302808
+    },
+    "service": {
+      "entropy": "yyKQGoAj0lSHSp6zU7RmjteV",
+      "hostname": "thefourtheye.in",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "3.2.2"
+  },
+  "ctime": 1557116783,
+  "expire_in": 504576000,
+  "prev": "5d3675930b48447fea32e44fa6902fd546b6fd7281f5c0803801fb9440cadf72",
+  "seqno": 6,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg2b+rSj6PqmBHvUQ/gXTOEuGL5b8TD67D1AIM8gpsSwMKp3BheWxvYWTESpcCBsQgXTZ1kwtIRH/qMuRPppAv1Ua2/XKB9cCAOAH7lEDK33LEIDRt9RIw/jkFG0uNRa/RUhDO1pvkrHNCFDMIb4YXKzn2AgHCo3NpZ8RAlWhS3zlZxxdxsZodn2JlLHkbJuPzOD9UdWLaaY3THcbsbgxPvKvMDTXIelHuPhoEo1bQKUwe/V2Enrel0/iwDKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEINFTqKjoqSyc/gjS1E4FvxYtfOKoF7hEZDo6kPekM0Eqo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/thefourtheye
+
+==================================================================
