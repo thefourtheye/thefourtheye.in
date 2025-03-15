@@ -1,0 +1,20 @@
+<br />
+<hr />
+<footer id="footer">
+  <div>
+    <span>{{ .Site.Params.footnote | safeHTML }}</span>
+  </div>
+  <div>
+    <span>Copyright © {{ now.Format "2006"}} {{ .Site.Params.Author }}</span>
+  </div>
+  <div>
+    <span>
+      <a href="mailto:sakthi@thefourtheye.in">
+	sakthi at thefourtheye dot in
+      </a> |
+      <a href="/Resume.pdf">
+	Resume
+      </a>
+    </span>
+  </div>
+</footer>

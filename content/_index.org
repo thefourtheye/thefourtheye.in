@@ -1,0 +1,11 @@
+#+TITLE: About Me
+#+DATE: 2024-02-02T04:14:54-08:00
+#+DRAFT: false
+#+AUTHOR: thefourtheye
+#+WEIGHT: 1
+
+
+* About Me
+My name is Sakthipriyan Vairamani (in internet, thefourtheye). I am [[https://github.com/nodejs/node?tab=readme-ov-file#tsc-emeriti-members][one of the
+Node.js Technical Steering Committee Emeriti]].  [[https://stackexchange.com/users/1219964/thefourtheye?tab=accounts][A stackoverflow answerer, with
+240k+ reputation.]] My languages of choice are Python and JavaScript.

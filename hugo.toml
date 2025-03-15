@@ -1,0 +1,138 @@
+baseURL = "http://thefourtheye.in"
+disqusShortname = "thefourtheye"
+enableGitInfo = true
+enableRobotsTXT = true
+hasCJKLanguage = true
+languageCode = "en"
+rssLimit = 10
+theme = "hugo-texify3"
+
+[[menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+pre = """
+"""
+weight = 1
+
+[[menu.main]]
+identifier = "tags"
+name = "Tags"
+url = "/tags"
+pre = """
+<svg width="1em" height="1em" viewBox="0 0 24 24"
+xmlns="http://www.w3.org/2000/svg">
+	<path d="M7.5,6A1.5,1.5,0,1,0,9,7.5,1.5,1.5,0,0,0,7.5,6Zm13.62,4.71L12.71,2.29A1,1,0,0,0,12,2H3A1,1,0,0,0,2,3v9a1,1,0,0,0,.29.71l8.42,8.41a3,3,0,0,0,4.24,0L21.12,15a3,3,0,0,0,0-4.24Zm-1.41,2.82h0l-6.18,6.17a1,1,0,0,1-1.41,0L4,11.59V4h7.59l8.12,8.12a1,1,0,0,1,.29.71A1,1,0,0,1,19.71,13.53Z"/></svg>
+"""
+weight = 2
+
+
+[[menu.main]]
+identifier = "rss"
+name = "RSS"
+url = "/index.xml"
+pre = """
+<svg width="1em" height="1em" viewBox="0 0 24 24"
+xmlns="http://www.w3.org/2000/svg">
+<path
+d="M2.88,16.88a3,3,0,0,0,0,4.24,3,3,0,0,0,4.24,0,3,3,0,0,0-4.24-4.24Zm2.83,2.83a1,1,0,0,1-1.42-1.42,1,1,0,0,1,1.42,0A1,1,0,0,1,5.71,19.71ZM5,12a1,1,0,0,0,0,2,5,5,0,0,1,5,5,1,1,0,0,0,2,0,7,7,0,0,0-7-7ZM5,8a1,1,0,0,0,0,2,9,9,0,0,1,9,9,1,1,0,0,0,2,0,11.08,11.08,0,0,0-3.22-7.78A11.08,11.08,0,0,0,5,8Zm10.61.39A15.11,15.11,0,0,0,5,4,1,1,0,0,0,5,6,13,13,0,0,1,18,19a1,1,0,0,0,2,0A15.11,15.11,0,0,0,15.61,8.39Z"/></svg>
+"""
+weight = 3
+
+[pagination]
+pagerSize = 10
+
+[taxonomies]
+tags = "tags"
+categories = "categories"
+
+[params]
+title = "thefourtheye.in"
+author = "Sakthipriyan Vairamani (thefourtheye)"
+description = "Sakthipriyan Vairamani (thefourtheye)'s Blog"
+footnote = """
+Powered by  <a class=link href=https://gohugo.io target=_blank rel=noopener>Hugo</a> | 
+Theme Inspired By <a class=link href=https://github.com/michaelneuper/hugo-texify3
+target=_blank rel=noopener>TeXify3</a>
+"""
+keywords = ["sakthipriyan", "sakthi", "sakthipriyan vairamani", "thefourtheye"]
+customCSS = []
+customJS = []
+dateFormat = "2 January 2006"
+since = "2012"
+emphasisWithDots = true
+toc = true
+rootFontSize = "125%"
+math = true
+enableDuckDuckGoSearchBox = true
+numberedSubtitles = true
+showWordCount = true
+showReadingTime = true
+enableInlineShortcodes = true
+
+  [params.commentEngine]
+  code = """
+  <script src="https://giscus.app/client.js"
+        data-repo="thefourtheye/thefourtheye.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxOTA3MDA0Mg=="
+        data-category="General"
+        data-category-id="DIC_kwDOASL8Ws4CoERq"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+"""
+
+  [params.buymeacoffee]
+  code = """
+  <script async data-name="BMC-Widget" 
+        data-cfasync="true" 
+        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+        data-id="thefourtheye" 
+        data-description="Like what I do? Buy me a coffee!" 
+        data-message="" 
+        data-color="#d79921" 
+        data-position="Right" 
+        data-x_margin="18" 
+        data-y_margin="18"
+        crossorigin="anonymous">
+  </script>
+  """
+
+  [params.sharingbuttons]
+  facebook = true
+  twitter = true
+  email = true
+  linkedin = true
+  reddit = true
+  whatsapp = true
+  hackernews = true
+  telegram = true
+
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = true
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ''
+    hl_inline = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+    style = 'emacs'
+    tabWidth = 4
+    wrapperClass = 'highlight'
+
+  [markup.goldmark.renderer]
+	hardWraps = false
+	unsafe = true

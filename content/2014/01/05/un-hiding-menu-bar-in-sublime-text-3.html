@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Un-hiding Menu Bar in Sublime Text 3 - Ubuntu"
+date: 2014-01-05T12:13:00+05:30
+tags:
+ - Ubuntu
+ - Sublime
+---
+
+<div class='post'>
+<div dir="ltr" style="text-align: left;" trbidi="on"><p><b>Edit on 13-Jan-2016</b><br />I found another easy way to fix this problem. You can toggle the menu with a keyboard shortcut. You can read more about that in <a href="http://www.thefourtheye.in/2016/01/sublime-text-3-unhiding-menu-in-ubuntu.html">this blog post of mine</a>.<br /></p><hr /><p>It has been a very long wait to get the "Hide Menu" feature in Linux versions of Sublime Text 3. Finally it was released.  But the problem is, if it hidden once, there is no straight forward way to get the Menu back. I tried <kbd>F10</kbd>, <kbd>Alt</kbd> etc etc and nothing worked. So, I am sharing the trick which worked for me in this post.</p><p>It is simple. Close the Sublime Text 3, if it is open. Open<br /><pre class="prettyprint">~/.config/sublime-text-3/Local/Session.sublime_session</pre>in any of your favorite editors and then make sure that, "menu_visible" is "true" in all places in that file.<br /><pre class="prettyprint">"menu_visible": true,</pre>Thats it :) Open Sublime Text 3 now and ta-da... Menu is back :)<br /></p><hr/><p><b>Edit On Jan 10 - 2016</b><br /><br />As I was doing the same task more often, I decided that put that in a script, like this<br /><pre>export FILE=/home/thefourtheye/.config/sublime-text-3/Local/Session.sublime_session<br />export TEMP_FILE=/home/thefourtheye/.config/sublime-text-3/Local/Session.sublime_session.bkp<br />sed -e 's/"menu_visible": false/"menu_visible": true/g' $FILE > $TEMP_FILE<br />mv $TEMP_FILE FILE<br /></pre>and then I added that to my shell script's rc file as an alias like this<br /><pre>alias sublime_fix_menu=~/.sublime_fix_menu.zsh</pre>That's it :-) Now, I just have to close Sublime Text 3, type sublime_fix_menu in the shell, open Sublime again :-)<br /></div></div>

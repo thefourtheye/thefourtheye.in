@@ -1,0 +1,118 @@
+{{ define "head" }}
+{{ $options := dict "transpiler" "dartsass" "targetPath" "css/index.css" }}
+{{ with resources.Get "sass/layouts/index.scss" | toCSS $options | postCSS |
+minify | fingerprint }}
+
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{
+							       .Data.Integrity
+							       }}"
+							       crossorigin="anonymous">
+{{ end }}
+{{ end }}
+
+{{ define "main" }}
+<main class="grid-container">
+    <div id="content" class="index">
+        {{ with .Site.GetPage "_index.md" }}
+            {{ .Content }}
+        {{ end }}
+
+	<br />
+	<hr />
+	<br />
+
+	<h2>Search the site</h2>
+  <div id="searchbox">
+    <form method="get" id="ddgSearch" target="_blank"
+	  action="https://duckduckgo.com/">
+        <input type="hidden" name="sites" value="{{ .Site.BaseURL }}"/>
+        <input type="hidden" name="kf" value="-1"> <!-- no favicons -->
+        <input type="hidden" name="kh" value="1"> <!-- https -->
+        <input type="hidden" name="kae" value="d" > <!-- dark theme -->
+        <input type="hidden" name="k1" value="-1" > <!-- no ads -->
+        <input type="text" name="q" placeholder="Search…" aria-label="Search
+        with DuckDuckGo" size="60" length="60" />
+        <button type="submit">
+            <svg aria-hidden="true" height="1rem" viewBox="0 0 16 16"
+            version="1.1" width="1rem" data-view-component="true" class="octicon
+            octicon-search Button-visual">
+            <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982
+            7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0
+            1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5
+            7Z"></path>
+            </svg>
+          </button>
+    </form>
+  </div>
+  <br />
+  <hr />
+  <br />
+
+	<h2>Archive</h2>
+
+  {{ $pages := .Pages }}
+
+  {{ range $pages.GroupByDate "2006-01" }}
+  <div class="post-group">
+    <ul style="list-style-type:none;">
+      {{ range .Pages }}
+      <li>
+        <a class="link" href="{{ .RelPermalink }}">{{ .Type }} ({{ len .Pages }}
+        Posts)</a>
+	<time style="text-align: end">
+	  {{ .PublishDate.Format .Site.Params.dateFormat }}
+	</time>
+      </li>
+
+	<p style="text-align: end; border: 1">
+	  {{ range .Params.Tags }}
+	  <a class="link" href='{{ "tags" | absURL }}/{{ . | urlize }}'>#{{ . }}</a>
+	  {{ end }}
+	</p>
+
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+    </div>
+    <div class="sidebar">
+        {{ if .Site.Taxonomies.categories }}
+        <h3 class="taxonomy">
+            <span class="icon">
+                <svg width="1em" height="1em" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                class="taxonomy-svg">
+                    <path d="M3.71,16.29a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21,1,1,0,0,0-.21.33,1,1,0,0,0,.21,1.09,1.15,1.15,0,0,0,.33.21.94.94,0,0,0,.76,0,1.15,1.15,0,0,0,.33-.21,1,1,0,0,0,.21-1.09A1,1,0,0,0,3.71,16.29ZM7,8H21a1,1,0,0,0,0-2H7A1,1,0,0,0,7,8ZM3.71,11.29a1,1,0,0,0-1.09-.21,1.15,1.15,0,0,0-.33.21,1,1,0,0,0-.21.33.94.94,0,0,0,0,.76,1.15,1.15,0,0,0,.21.33,1.15,1.15,0,0,0,.33.21.94.94,0,0,0,.76,0,1.15,1.15,0,0,0,.33-.21,1.15,1.15,0,0,0,.21-.33.94.94,0,0,0,0-.76A1,1,0,0,0,3.71,11.29ZM21,11H7a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2ZM3.71,6.29a1,1,0,0,0-.33-.21,1,1,0,0,0-1.09.21,1.15,1.15,0,0,0-.21.33.94.94,0,0,0,0,.76,1.15,1.15,0,0,0,.21.33,1.15,1.15,0,0,0,.33.21,1,1,0,0,0,1.09-.21,1.15,1.15,0,0,0,.21-.33.94.94,0,0,0,0-.76A1.15,1.15,0,0,0,3.71,6.29ZM21,16H7a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Z"/></svg>
+            </span>
+            <a href="/categories/">Top Categories</a>
+        </h3>
+        <ul class="nav-list sidenav">
+        {{ range first 10 .Site.Taxonomies.categories.ByCount }}
+            <li><a class="title is-5 is-size-6-mobile" href="{{ .Page.Permalink
+            }}">{{ .Page.Title}} ({{ len .Pages }})</a>
+            </li>
+	{{ end }}
+        </ul>
+        {{ end }}
+        {{ if .Site.Taxonomies.tags }}
+        <p></p>
+        <h3 class="taxonomy">
+            <span class="icon">
+                <svg width="1em" height="1em" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                class="taxonomy-svg">
+                    <path d="M7.5,6A1.5,1.5,0,1,0,9,7.5,1.5,1.5,0,0,0,7.5,6Zm13.62,4.71L12.71,2.29A1,1,0,0,0,12,2H3A1,1,0,0,0,2,3v9a1,1,0,0,0,.29.71l8.42,8.41a3,3,0,0,0,4.24,0L21.12,15a3,3,0,0,0,0-4.24Zm-1.41,2.82h0l-6.18,6.17a1,1,0,0,1-1.41,0L4,11.59V4h7.59l8.12,8.12a1,1,0,0,1,.29.71A1,1,0,0,1,19.71,13.53Z"/></svg>
+            </span>
+            <a href="/tags/">Top Tags</a>
+        </h3>
+        <ul class="nav-list sidenav">
+        {{ range first 10 .Site.Taxonomies.tags.ByCount }}
+            <li><a class="title is-5 is-size-6-mobile" href="{{ .Page.Permalink
+            }}">{{ .Page.Title}} ({{ len .Pages }})</a>
+            </li>
+	{{ end }}
+        </ul>
+        {{ end }}
+    </div>
+</main>
+{{ end }}
