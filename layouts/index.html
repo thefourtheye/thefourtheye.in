@@ -2,11 +2,8 @@
 {{ $options := dict "transpiler" "dartsass" "targetPath" "css/index.css" }}
 {{ with resources.Get "sass/layouts/index.scss" | toCSS $options | postCSS |
 minify | fingerprint }}
-
-  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{
-							       .Data.Integrity
-							       }}"
-							       crossorigin="anonymous">
+<link rel="stylesheet" href="{{ .RelPermalink }}"
+      integrity="{{.Data.Integrity}}" crossorigin="anonymous">
 {{ end }}
 {{ end }}
 
@@ -31,7 +28,7 @@ minify | fingerprint }}
         <input type="hidden" name="kae" value="d" > <!-- dark theme -->
         <input type="hidden" name="k1" value="-1" > <!-- no ads -->
         <input type="text" name="q" placeholder="Search…" aria-label="Search
-        with DuckDuckGo" size="60" length="60" />
+        with DuckDuckGo" />
         <button type="submit">
             <svg aria-hidden="true" height="1rem" viewBox="0 0 16 16"
             version="1.1" width="1rem" data-view-component="true" class="octicon
