@@ -135,8 +135,9 @@ minify | fingerprint }}
     {{ end }}
   </div>
   <div class="comment">
-    <!-- disqus -->
-    {{ template "_internal/disqus.html" . }}
+    <!-- disqus
+	 {{ template "_internal/disqus.html" . }}
+    -->
     <!-- generic engine -->
     {{ .Site.Params.commentEngine.code | safeHTML }}
   </div>
