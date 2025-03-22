@@ -26,7 +26,6 @@ xmlns="http://www.w3.org/2000/svg">
 """
 weight = 2
 
-
 [[menu.main]]
 identifier = "rss"
 name = "RSS"
@@ -47,7 +46,7 @@ tags = "tags"
 categories = "categories"
 
 [params]
-title = "thefourtheye.in"
+title = ""
 author = "Sakthipriyan Vairamani (thefourtheye)"
 description = "Sakthipriyan Vairamani (thefourtheye)'s Blog"
 footnote = """
@@ -70,7 +69,7 @@ showWordCount = true
 showReadingTime = true
 enableInlineShortcodes = true
 
-  [params.commentEngine]
+[params.commentEngine]
   code = """
   <script src="https://giscus.app/client.js"
         data-repo="thefourtheye/thefourtheye.github.io"
@@ -89,8 +88,7 @@ enableInlineShortcodes = true
         async>
 </script>
 """
-
-  [params.buymeacoffee]
+[params.buymeacoffee]
   code = """
   <script async data-name="BMC-Widget" 
         data-cfasync="true" 
@@ -105,8 +103,7 @@ enableInlineShortcodes = true
         crossorigin="anonymous">
   </script>
   """
-
-  [params.sharingbuttons]
+[params.sharingbuttons]
   facebook = true
   twitter = true
   email = true
@@ -115,7 +112,6 @@ enableInlineShortcodes = true
   whatsapp = true
   hackernews = true
   telegram = true
-
 
 [markup]
   [markup.highlight]
@@ -134,5 +130,5 @@ enableInlineShortcodes = true
     wrapperClass = 'highlight'
 
   [markup.goldmark.renderer]
-	hardWraps = false
-	unsafe = true
+    hardWraps = false
+    unsafe = true
