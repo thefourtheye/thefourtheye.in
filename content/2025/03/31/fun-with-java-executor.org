@@ -1,0 +1,158 @@
+#+TITLE: Fun with Java Executor
+#+SUBTITLE: Java Executors are Fun
+#+DATE: 2025-03-31T09:16:15+05:30
+#+DRAFT: false
+#+TAGS: java
+#+TAGS: executor
+
+* Introduction
+
+Recently, I was working with Java Executor and wrote a complete program and
+expected it to work. But it didn't, obviously, hence this post.
+
+* Setup
+
+There is a hierarchy in the way work is distributed. There is a Parent task,
+which will trigger multiple Child tasks and wait for their completion. We want
+to execute the Child tasks in parallel and also the Parent tasks in
+parallel. So, my first attempt was to use Java's `Executor`.
+
+** Parent Task
+
+The Parent Task is straight forward. It creates the Child tasks with a latch, to
+track the completion of the Child task.
+
+
+#+BEGIN_SRC java
+static class ParentTask implements Runnable {
+    private final CountDownLatch latch;
+    private final Executor executor;
+
+    ParentTask(final CountDownLatch latch, final Executor executor) {
+        this.latch = latch;
+        this.executor = executor;
+    }
+
+    @Override
+    public void run() {
+        print("ParentTask");
+        final CountDownLatch childTaskLatch = new CountDownLatch(1);
+        executor.execute(new ChildTask(childTaskLatch));
+        await(childTaskLatch);
+        latch.countDown();
+    }
+}
+#+END_SRC
+
+** Child Task
+
+Child task will simply get the latch and count it down. Nothing more, nothing
+less.
+
+#+BEGIN_SRC java
+static class ChildTask implements Runnable {
+    private final CountDownLatch latch;
+
+    public ChildTask(final CountDownLatch latch) {
+        this.latch = latch;
+    }
+
+    @Override
+    public void run() {
+        latch.countDown();
+        print("ChildTask");
+    }
+}
+#+END_SRC
+
+** Main
+
+The =Main= will simply create the ~Executor~ and trigger Parent tasks.
+
+#+NAME: Main
+#+BEGIN_SRC java
+public static void main(String[] args) {
+    final int CORE_POOL_SIZE = 1;
+    final int MAX_POOL_SIZE = 5;
+    final long KEEP_ALIVE_TIME_IN_MS = 1000;
+    final int MAX_CAPACITY = 100;
+    final ThreadPoolExecutor executor = new ThreadPoolExecutor(
+            CORE_POOL_SIZE,
+            MAX_POOL_SIZE,
+            KEEP_ALIVE_TIME_IN_MS, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>(MAX_CAPACITY)
+    );
+    final CountDownLatch latch = new CountDownLatch(1);
+    executor.execute(new ParentTask(latch, executor));
+    await(latch);
+    executor.shutdownNow();
+}
+#+END_SRC
+
+** Helpers
+
+Following are the helper functions used.
+
+#+BEGIN_SRC java
+static void print(final String msg) {
+    System.out.printf("[%s] [%s]\n", Thread.currentThread().getName(), msg);
+}
+
+static void await(final CountDownLatch latch) {
+    try {
+        latch.await();
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
+}
+#+END_SRC
+
+* Result
+
+** Expectation
+
+I expected this code to execute the Parent task in the =Executor= and as the
+=MAX_POOL_SIZE= is =5=, I expected the Child task as well to be executed by the
+=Executor= with the following in the Console.
+
+#+BEGIN_SRC 
+[pool-1-thread-1] [ParentTask]
+[pool-1-thread-2] [ChildTask]
+#+END_SRC
+
+** Actual Output
+
+#+BEGIN_SRC 
+[pool-1-thread-1] [ParentTask]
+...Program Hangs...
+#+END_SRC
+
+* Explanation
+
+This is because of a deadlock. Both the Parent and Child tasks share the
+=Executor=. The =CORE_POOL_SIZE= is set as =1=. So, bare minimum one thread will
+be there. Now, when the Parent task is executed with the =Executor=, it will use
+the core thread that is already present. Now, the Parent task executes the Child
+task as well, with the same =Executor=. Now, as the Core Pool Size (1) is lesser
+than the Maximum Pool size (5), I expected a new =Thread= to be created when the
+Child task is executed with =Executor=. But the actual behaviour of the
+=ThreadPoolExecutor= is documented as follows in
+[[https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html][java.util.concurrent.ThreadPoolExecutor]]
+
+#+BEGIN_QUOTE
+If corePoolSize or more threads are running, the Executor always prefers queuing
+a request rather than adding a new thread.
+#+END_QUOTE
+
+So, as the Parent task is already being executed by the Core Thread, the Child
+Task is Queued and waiting for the Parent task to be completed, but the Parent
+task is waiting for the Child task to complete. Hence the deadlock.
+
+* Finishing Thoughts
+
+I believe a better option would be to have a dedicated =Executor= for the Parent
+tasks, and a dedicated =Executor= for the Child tasks would avoid this problem.
+
+* References
+
+ - [[https://gist.github.com/thefourtheye/0b569a4627d456f5fb096259e62ffe2a][Code]]

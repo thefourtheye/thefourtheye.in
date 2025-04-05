@@ -116,14 +116,14 @@ enableInlineShortcodes = true
 [markup]
   [markup.highlight]
     anchorLineNos = true
-    codeFences = true
+    codeFences = false
     guessSyntax = true
     hl_Lines = ''
     hl_inline = false
     lineAnchors = ''
     lineNoStart = 1
     lineNos = true
-    lineNumbersInTable = true
+    lineNumbersInTable = false
     noClasses = true
     style = 'emacs'
     tabWidth = 4
