@@ -1,5 +1,5 @@
 #+TITLE: Deadlock with Java ThreadPoolExecutor
-#+SUMMARY: In this post, I share my deadlock experience with Java Executor
+#+DESCRIPTION: In this post I share how I ended up with a Deadlock in a Java ThreadPoolExecutor program.
 #+DATE: 2025-03-31T09:16:15+05:30
 #+DRAFT: false
 #+TAGS: java
@@ -15,12 +15,13 @@ expected it to work. But it didn't, obviously, hence this post.
 There is a hierarchy in the way work is distributed. There is a Parent task,
 which will trigger multiple Child tasks and wait for their completion. We want
 to execute the Child tasks in parallel and also the Parent tasks in
-parallel. So, my first attempt was to use Java's `Executor`.
+parallel. So, my first attempt was to use Java's =Executor=. To keep things
+simple, the Parent task will simply create a single Child task.
 
 ** Parent Task
 
-The Parent Task is straight forward. It creates the Child tasks with a latch, to
-track the completion of the Child task.
+The Parent Task is straight forward. It creates a Child task with a latch, to
+track the completion.
 
 
 #+BEGIN_SRC java
@@ -153,7 +154,7 @@ task is waiting for the Child task to complete. Hence the deadlock.
 Although increasing the number of core threads in the =Main= class would get the
 program work as expected, that may not be the right way to solve this problem. I
 believe a better option would be to have a dedicated =Executor= for the Parent
-tasks, and a dedicated =Executor= for the Child tasks would avoid this problem.
+tasks, and a dedicated =Executor= for the Child tasks.
 
 * References
 

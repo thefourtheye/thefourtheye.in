@@ -54,8 +54,8 @@ minify | fingerprint }}
 	  {{ .PublishDate.Format .Site.Params.dateFormat }}
 	</time>
       </li>
-
-	<p style="text-align: end; border: ">
+      <p style="text-align: left">{{ .Description }}</p>
+	<p style="text-align: end">
 	  {{ range .Params.Tags }}
 	  <a class="link" href='{{ "tags" | absURL }}/{{ . | urlize }}'>#{{ . }}</a>
 	  {{ end }}
