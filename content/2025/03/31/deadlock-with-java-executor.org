@@ -4,6 +4,8 @@
 #+DRAFT: false
 #+TAGS: java
 #+TAGS: executor
+#+CATEGORIES: programming
+#+CATEGORIES: learning
 
 * Introduction
 
