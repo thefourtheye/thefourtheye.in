@@ -1,5 +1,5 @@
-#+TITLE: Fun with Java Executor
-#+SUBTITLE: Java Executors are Fun
+#+TITLE: Deadlock with Java ThreadPoolExecutor
+#+SUMMARY: In this post, I share my deadlock experience with Java Executor
 #+DATE: 2025-03-31T09:16:15+05:30
 #+DRAFT: false
 #+TAGS: java
@@ -131,9 +131,9 @@ I expected this code to execute the Parent task in the =Executor= and as the
 
 This is because of a deadlock. Both the Parent and Child tasks share the
 =Executor=. The =CORE_POOL_SIZE= is set as =1=. So, bare minimum one thread will
-be there. Now, when the Parent task is executed with the =Executor=, it will use
-the core thread that is already present. Now, the Parent task executes the Child
-task as well, with the same =Executor=. Now, as the Core Pool Size (1) is lesser
+be there. When the Parent task is executed with the =Executor=, it will use
+the core thread that is already present. The Parent task executes the Child
+task as well, with the same =Executor=. As the Core Pool Size (1) is lesser
 than the Maximum Pool size (5), I expected a new =Thread= to be created when the
 Child task is executed with =Executor=. But the actual behaviour of the
 =ThreadPoolExecutor= is documented as follows in
@@ -150,9 +150,12 @@ task is waiting for the Child task to complete. Hence the deadlock.
 
 * Finishing Thoughts
 
-I believe a better option would be to have a dedicated =Executor= for the Parent
+Although increasing the number of core threads in the =Main= class would get the
+program work as expected, that may not be the right way to solve this problem. I
+believe a better option would be to have a dedicated =Executor= for the Parent
 tasks, and a dedicated =Executor= for the Child tasks would avoid this problem.
 
 * References
 
- - [[https://gist.github.com/thefourtheye/0b569a4627d456f5fb096259e62ffe2a][Code]]
+ - [[https://gist.github.com/thefourtheye/0b569a4627d456f5fb096259e62ffe2a][Complete Code]]
+ - [[https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html][java.util.concurrent.ThreadPoolExecutor]]
