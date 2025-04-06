@@ -1,3 +1,4 @@
+title = "thefourtheye.in"
 baseURL = "http://thefourtheye.in"
 disqusShortname = "thefourtheye"
 enableGitInfo = true
@@ -46,7 +47,7 @@ tags = "tags"
 categories = "categories"
 
 [params]
-title = ""
+title = "thefourtheye.in"
 author = "Sakthipriyan Vairamani (thefourtheye)"
 description = "Sakthipriyan Vairamani (thefourtheye)'s Blog"
 footnote = """
