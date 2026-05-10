@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" style="font-size: {{
-					     .Site.Params.rootFontSize | default
-					     "100%" }}">
+<html style="font-size: {{ .Site.Params.rootFontSize | default "100%" }}">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- author -->
-  <meta name="author" content="{{ .Site.Author.name }}">
 
   <!-- description -->
   {{ if .Description }}

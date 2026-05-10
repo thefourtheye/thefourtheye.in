@@ -1,6 +1,6 @@
 {{ define "main" }}
 <main id="main">
-    <h2>
+    <h2 style="text-align: center">
         <span class="icon">
             <svg width="1em" height="1em" viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -13,8 +13,7 @@
     <div class="row">
         {{ range .Data.Terms.ByCount }}
         <ul>
-            <li><a class="title is-5 is-size-6-mobile" href="{{ .Page.Permalink
-            }}">{{ .Page.Title}}</a>
+            <li><a class="title is-5 is-size-6-mobile" href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
                 {{ $Totalpage:= len .Pages }}
                 {{ $Totalpage }} post{{ if ne $Totalpage 1 }}s{{ end }}
             </li>

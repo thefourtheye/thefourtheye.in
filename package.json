@@ -1,0 +1,13 @@
+{
+  "name": "thefourtheye.in",
+  "version": "1.0.0",
+  "description": "Hugo site for thefourtheye.in",
+  "scripts": {
+    "clean": "rm -rf public",
+    "clean-deploy": "cd ../thefourtheye.github.io && find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.*' -exec rm -rf {} +",
+    "build": "hugo",
+    "test": "npm run clean && hugo server",
+    "copy": "cp -r public/* ../thefourtheye.github.io/",
+    "deploy": "npm run clean && npm run build && npm run clean-deploy && npm run copy"
+  }
+}

@@ -1,10 +1,10 @@
 title = "thefourtheye.in"
-baseURL = "http://thefourtheye.in"
+baseURL = "https://thefourtheye.in"
 disqusShortname = "thefourtheye"
 enableGitInfo = true
 enableRobotsTXT = true
 hasCJKLanguage = true
-languageCode = "en"
+locale = "en"
 rssLimit = 10
 theme = "hugo-texify3"
 
@@ -53,9 +53,12 @@ pagerSize = 10
 tags = "tags"
 categories = "categories"
 
+[params.author]
+name = "Sakthipriyan Vairamani (thefourtheye)"
+email = "sakthi@thefourtheye.in"
+
 [params]
 title = "thefourtheye.in"
-author = "Sakthipriyan Vairamani (thefourtheye)"
 description = "Sakthipriyan Vairamani (thefourtheye)'s Blog"
 footnote = """
 Powered by  <a class=link href=https://gohugo.io target=_blank rel=noopener>Hugo</a> | 

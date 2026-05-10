@@ -1,0 +1,7 @@
+{{ define "main" }}
+<main id="main" class="archive">
+  <p><a href="/tags/">&larr; Back to Tags</a></p>
+  <h2 style="text-align: center">{{ .Title }} - Tag</h2>
+  {{ template "taxonomy-list" . }}
+</main>
+{{ end }}

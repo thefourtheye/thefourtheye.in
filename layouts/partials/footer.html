@@ -1,11 +1,10 @@
-<br />
 <hr />
-<footer id="footer">
+<footer id="footer" style="border-top: none; padding-top: 0; margin-top: 0;">
   <div>
     <span>{{ .Site.Params.footnote | safeHTML }}</span>
   </div>
   <div>
-    <span>Copyright © {{ now.Format "2006"}} {{ .Site.Params.Author }}</span>
+    <span>Copyright © {{ now.Format "2006"}} {{ .Site.Params.author.name }}</span>
   </div>
   <div>
     <span>

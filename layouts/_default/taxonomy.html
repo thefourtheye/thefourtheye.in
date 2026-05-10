@@ -1,0 +1,49 @@
+{{ define "head" }}
+<style>
+.post-item {
+  margin-bottom: 1.5rem;
+}
+.post-item:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.post-item .link {
+  color: var(--orange);
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+</style>
+{{ end }}
+
+{{ define "main" }}
+<main id="main" class="archive">
+  {{ if .Parent }}
+  <p><a href="{{ .Parent.RelPermalink }}">&larr; Back to {{ .Parent.Title }}</a></p>
+  {{ else }}
+  <p><a href="/">&larr; Back to Home</a></p>
+  {{ end }}
+  <h2 style="text-align: center">{{ .Title }}</h2>
+  {{ range .Pages.GroupByDate "2006" }}
+  <div class="post-group">
+    <h3>{{ .Key }}</h3>
+    <ul style="border-left: 1px solid var(--fg4); list-style-type: none; margin-left: 0.5rem; padding-left: 1.1rem;">
+    {{ range .Pages }}
+      <div class="post-item">
+      <li style="display: flex; justify-content: space-between; width: 100%;">
+        <a class="post-link" href="{{ .RelPermalink }}">
+          <span>{{ .Title }}</span>
+        </a>
+        <time>{{ .PublishDate.Format .Site.Params.dateFormat }}</time>
+      </li>
+      <p style="text-align: left">{{ .Description }}</p>
+      <p style="text-align: left">
+        {{ range .Params.Tags }}
+        <a class="link" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
+        {{ end }}
+      </p>
+      </div>
+    {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</main>
+{{ end }}

@@ -22,7 +22,8 @@ minify | fingerprint }}
   <div id="searchbox">
     <form method="get" id="ddgSearch" target="_blank"
 	  action="https://duckduckgo.com/">
-        <input type="hidden" name="sites" value="{{ .Site.BaseURL }}"/>
+        {{ $parsedUrl := urls.Parse .Site.BaseURL }}
+        <input type="hidden" name="sites" value="{{ $parsedUrl.Host }}"/>
         <input type="hidden" name="kf" value="-1"> <!-- no favicons -->
         <input type="hidden" name="kh" value="1"> <!-- https -->
         <input type="hidden" name="kae" value="d" > <!-- dark theme -->
@@ -54,8 +55,7 @@ minify | fingerprint }}
     <ul style="list-style-type:none;">
       {{ range .Pages }}
       <li>
-        <a class="link" href="{{ .RelPermalink }}">{{ .Type }} ({{ len .Pages }}
-        Posts)</a>
+        <a class="link" href="{{ .RelPermalink }}">{{ .Type }} ({{ len .Pages }})</a>
 	<time style="text-align: end">
 	  {{ .PublishDate.Format .Site.Params.dateFormat }}
 	</time>
@@ -63,7 +63,7 @@ minify | fingerprint }}
 
 	<p style="text-align: end; border: 1">
 	  {{ range .Params.Tags }}
-	  <a class="link" href='{{ "tags" | absURL }}/{{ . | urlize }}'>#{{ . }}</a>
+	  <a class="link" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
 	  {{ end }}
 	</p>
 
