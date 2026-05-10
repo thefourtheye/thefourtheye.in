@@ -1,0 +1,23 @@
+==================================================================
+https://keybase.io/thefourtheye
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am the owner of this github repo
+  * I can sign with any known key
+  * The signed data below can be verified safely with the above key
+
+All hashes below can be used to prove a file belongs to this repo:
+
+------------------------------------------------------------------
+VERIFIED IDENTITY CLAIM
+------------------------------------------------------------------
+
+Username: thefourtheye
+Key ID: 5AE5 6D12 35E2 87FF 80D4  7FC6 4E8B F5B3 A8E9 D7CC
+Key fingerprint: 5AE5 6D12 35E2 87FF 80D4  7FC6 4E8B F5B3 A8E9 D7CC
+Bitcoin receive address: 1M3L7jN6X3k7Z9v2Y4p8qR1tU6w3A2b5C
+
+All of the above is true and can be verified through keybase.io
+==================================================================
