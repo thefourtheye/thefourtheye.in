@@ -80,6 +80,17 @@
   {{ template "_internal/twitter_cards.html" . }}
 
   {{ block "head" . }}{{ end }}
+
+  <style>
+    :root {
+      --content-max-width: 90vw;
+      --content-padding: 5vw;
+    }
+    #wrapper {
+      padding-left: var(--content-padding);
+      padding-right: var(--content-padding);
+    }
+  </style>
 </head>
 
 <body>
