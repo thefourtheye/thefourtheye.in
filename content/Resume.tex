@@ -2,190 +2,145 @@
 
 \documentclass[letterpaper,11pt]{article}
 
-\usepackage{latexsym}
 \usepackage[empty]{fullpage}
 \usepackage{titlesec}
-\usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{verbatim}
 \usepackage{enumitem}
 \usepackage[pdftex]{hyperref}
 \usepackage{fancyhdr}
 
-
 \pagestyle{fancy}
-\fancyhf{} % clear all header and footer fields
-\fancyfoot{}
+\fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-% Adjust margins
+% Margins
 \addtolength{\oddsidemargin}{-0.375in}
-\addtolength{\evensidemargin}{-0.375in}
 \addtolength{\textwidth}{1in}
 \addtolength{\topmargin}{-.5in}
 \addtolength{\textheight}{1.0in}
 
-\urlstyle{same}
-
 \raggedbottom
 \raggedright
-\setlength{\tabcolsep}{0in}
 
-% Sections formatting
+% Section formatting
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+  \vspace{-4pt}\scshape\large
+}{}{0em}{}[\titlerule \vspace{-5pt}]
 
-%-------------------------
 % Custom commands
-\newcommand{\resumeItem}[2]{
-  \item\small{
-    \textbf{#1}{: #2 \vspace{-2pt}}
-  }
-}
-
+\newcommand{\resumeItem}[1]{\item \small{#1}}
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-1pt}\item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \textbf{#1} & #2 \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-5pt}
+  \vspace{-2pt}\item
+  \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small #4} \\
+  \end{tabular*}\vspace{-6pt}
 }
-
-\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
-
-\renewcommand{\labelitemii}{$\circ$}
-
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
-\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
-
-%-------------------------------------------
-%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \begin{document}
 
-%----------HEADING-----------------
-\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
-  \textbf{\href{http://thefourtheye.in/}{\Large Sakthipriyan Vairamani}} & Email : \href{mailto:sakthi@thefourtheye.in}{sakthi@thefourtheye.in}\\
-  \href{http://thefourtheye.in/}{http://thefourtheye.in} & Mobile : +91-999-460-2429 \\
-\end{tabular*}
+%----------HEADER----------
+\noindent
+{\Large \textbf{Sakthipriyan Vairamani}} \hfill Email: \href{mailto:sakthi@thefourtheye.in}{sakthi@thefourtheye.in} \\
+\href{http://thefourtheye.in}{http://thefourtheye.in} \hfill Mobile: +91-999-460-2429
 
-%-----------Key Features-----------------
-\section{Key Features}
-\resumeSubHeadingListStart
-  \resumeSubheading
-    {Node.js project's Technical Steering Committee Emeritus}{}
-    {\href{https://github.com/nodejs/node\#tsc-emeriti}{TSC Emeriti}}{}
-  \resumeSubheading
-    {238,000+ reputation in stackoverflow}{}
-    {\href{https://stackoverflow.com/users/1903116/thefourtheye}{\#309 of overall answerers}}{}
-\resumeSubHeadingListEnd
+\vspace{6pt}
 
-%-----------EXPERTISE-----------------
-\section{Expertise}
-  \resumeSubHeadingListStart
-    \resumeSubheading
-      {Java}{}
-      {Fifteen+ years of professional development experience.}{}
-    \resumeSubheading
-      {Kubernetes}{}
-      {Architected scalable applications which are deployed with k8s \& Azure Cloud.}{}
-    \resumeSubheading
-      {Kafka}{}
-      {Effectively used as Message Queue, Publisher-Subscriber system in multiple mission critical solutions.}{}
-    \resumeSubheading
-      {Multitenancy}{}
-      {Developed multitenant solutions for complex usecases.}{}
-    \resumeSubheading
-      {Python}{}
-      {Learnt from some of the best developers in the internet. Actively use it in Competitive Programming.}{}
-    \resumeSubheading
-      {Javascript}{}
-      {Many popular Stackoverflow answers and taught classes.}{}
-    \resumeSubheading
-      {Scala}{}
-      {Bit rusty, but built high throughput systems with Akka.}{}
-    \resumeSubheading
-      {C \& C++}{}
-      {Used to use these in competitive programming. Have experience working with them in Node.js Core and CPython.}{}
-  \resumeSubHeadingListEnd
+\textbf{Staff Software Engineer | Distributed Systems \& Platform Architecture | Privacy \& Compliance at Scale} \\
+Node.js TSC Emeritus \hfill 240K+ Stack Overflow Reputation (Top 1\%)
 
+%-----------HIGHLIGHTS-----------
+\section{Highlights}
+\begin{itemize}[leftmargin=*]
+  \resumeItem{Node.js Technical Steering Committee (TSC) Emeritus; influenced direction of Node.js ecosystem}
+  \resumeItem{Top 1\% global Stack Overflow contributor with 240K+ reputation and 29.1M+ developer reach}
+\end{itemize}
 
-%-----------EDUCATION-----------------
-\section{Education}
-  \resumeSubHeadingListStart
-    \resumeSubheading
-      {Kamaraj College ef Engineering \& Technology}{Virudhunagar, Tamilnadu, India}
-      {Bachelor of Engineering in Computer Science;  72\%}{Aug. 2004 -- Jun. 2008}
-      \resumeSubheading
-      {K.V.S Higher Secondary School}{Virudhunagar, Tamilnadu, India}
-      {+2;  89\%}{Jun. 2004}
-  \resumeSubHeadingListEnd
+%-----------CORE EXPERTISE-----------
+\section{Core Expertise}
+\begin{itemize}[leftmargin=*]
+  \resumeItem{\textbf{Languages:} Java, Python, JavaScript, Scala, C/C++}
+  \resumeItem{\textbf{Distributed Systems:} Kafka, Event-driven architecture, High-throughput systems}
+  \resumeItem{\textbf{Cloud \& Platforms:} Kubernetes, Azure, Observability, CI/CD}
+  \resumeItem{\textbf{Architecture:} Multi-tenancy, Low-latency systems, Platform design}
+  \resumeItem{\textbf{Security \& Privacy:} Consent systems, Compliance platforms, API security}
+\end{itemize}
 
-
-%-----------EXPERIENCE-----------------
+%-----------EXPERIENCE-----------
 \section{Experience}
-  \resumeSubHeadingListStart
+\begin{itemize}[leftmargin=*]
 
-    \resumeSubheading
-      {Walmart Global Tech}{Chennai, Tamilnadu, India}
-      {Staff Software Engineer}{Apr 2022 - Present}
-      \resumeItemListStart
-        \resumeItem{Monitoring Solution for Privacy Platform}
-          {Walmart's Privacy Platform is a cloud based microservices system, with dynamic workflows. Involved in architecting and rearchitecting of the whole monitoring system and infrastructure. This system is responsible for ensuring the Privacy Requests of the Customers are fulfilled before the legally mandated due dates.}
-        \resumeItem{Consent Management System}
-          {From Privacy standpoint, before the customers' data is used for specific purposes, an explicit consent has to be obtained from them. The consents and the purposes are different for different countries and states. This system defines and manages what the consents are, depending on the local laws, collects consents from the customers, and maintains them as the centralised source of truth along with Auditing capabilities. Architected the whole system, while working with different stakeholders, including Legal and Privacy teams.}
-      \resumeItemListEnd
+\resumeSubheading
+{Walmart Global Tech}{Chennai, India}
+{Staff Software Engineer (Operating at Principal Scope)}{Apr 2022 -- Present}
 
-    \resumeSubheading
-      {PayPal India Development Center}{Chennai, Tamilnadu, India}
-      {Software Engineer}{Sep 2014 - Mar 2022}
-      \resumeItemListStart
-        \resumeItem{Media Services}
-          {This application holds all the customers' profile photos and invoicing logos of PayPal. This facilitates storing and retriving them with APIs. Apart from that the images are delivered to the customers with Akamai CDN. Sole maintainer of this project.}
-        \resumeItem{FileVault}
-          {This application is the port of PayPal. All external and internal secure file transfers happen via this. Ensured that application is secure and refactored it for maintainability.}
-        \resumeItem{Invoicing}
-          {Refactored a huge chunk of critical parts of the Invoicing product for performance, readability, and memory leaks.}
-        \resumeItem{Kafka-ElasticSearch Pipeline}
-          {This Akka streams based pipeline helps consuming data from Kafka, with back pressure, and publishing them to ElasticSearch. One of the core developers of this product.}
-        \resumeItem{Crawler}
-          {Internal application which crawls websites from the internet. Improved the scalability of the application by reconstructing the core.}
-      \resumeItemListEnd
+\begin{itemize}[leftmargin=*]
+  \resumeItem{Defined and led architecture for enterprise-wide Consent Management Platform adopted across Walmart Canada; designed for 200 TPS and 200ms latency with multi-region compliance support \textbf{(Kubernetes, Microservices)}}
+  \resumeItem{Owned observability and monitoring strategy for Privacy Platform processing 100K+ requests/day (including GPC), ensuring regulatory SLA compliance \textbf{(Distributed Systems, Observability)}}
+  \resumeItem{Partnered with Legal, Privacy, and Engineering leadership to standardize consent and compliance patterns across systems}
+\end{itemize}
 
-    \resumeSubheading
-      {Computer Science Corporation}{Chennai, Tamilnadu, India}
-      {Software Engineer - for PayPal}{Dec 2011 - Sep 2014}
-      \resumeItemListStart
-        \resumeItem{Web Security}
-          {Developed and integrated prevention frameworks with all the PayPal flows for common web attacks like CSRF and XSS.}
-        \resumeItem{Anamoly Detection System}
-          {Contributed to anamoly detection in the application layer, with respect to the number of requests and the type of requests. This helps greatly in preventing Account Take Overs.}
-        \resumeItem{DDoS prevention for PayPal APIs}
-          {Developed a system which would validate the API requests at different network layers to prevent DDoS attacks.}
-      \resumeItemListEnd
+\resumeSubheading
+{PayPal India Development Center}{Chennai, India}
+{Software Engineer}{Sep 2014 -- Mar 2022}
 
-    \resumeSubheading
-      {Honeywell Technology Solutions}{Madurai, Tamilnadu, India}
-      {Software Engineer}{Nov 2010 - Nov 2011}
-      \resumeItemListStart
-        \resumeItem{Turbobolt}
-          {It is a bolted joint analysis program for the aeroplane engine manufacturing system. OpenGL was used to generate 3D models of the bolts.}
-      \resumeItemListEnd
+\begin{itemize}[leftmargin=*]
+  \resumeItem{Led design and ownership of Media Services platform delivering 100 TPS at 50ms latency using globally distributed CDN architecture \textbf{(Java, CDN)}}
+  \resumeItem{Architected Kafka–ElasticSearch streaming pipeline achieving 10ms latency and processing millions of events per minute \textbf{(Kafka, Streaming)}}
+  \resumeItem{Drove security and scalability improvements in FileVault platform supporting regulatory and financial data transfers at scale \textbf{(Security, Distributed Systems)}}
+  \resumeItem{Influenced architectural direction of Invoicing systems improving performance and reliability of critical workflows \textbf{(Performance, Backend Systems)}}
+\end{itemize}
 
-    \resumeSubheading
-      {IBM India Private Limited}{Bengaluru, Karnataka, India}
-      {Software Engineer}{Aug 2008 - Sep 2010}
-      \resumeItemListStart
-        \resumeItem{AT\&T Network Systems}
-          {Managed various applications which deal with different network switches. Deploying routing information, bookkeeping of switches, and collecting performance information are few of the main aspects of these projects.}
-      \resumeItemListEnd
+\resumeSubheading
+{Computer Sciences Corporation (for PayPal)}{Chennai, India}
+{Software Engineer}{Dec 2011 -- Sep 2014}
 
-  \resumeSubHeadingListEnd
+\begin{itemize}[leftmargin=*]
+  \resumeItem{Designed anomaly detection systems to prevent account takeovers at scale \textbf{(Security, Risk Systems)}}
+  \resumeItem{Built multi-layer DDoS mitigation strategies for API infrastructure \textbf{(Network Security, APIs)}}
+  \resumeItem{Standardized frameworks mitigating CSRF and XSS vulnerabilities across applications \textbf{(Web Security)}}
+\end{itemize}
 
-%-------------------------------------------
+\resumeSubheading
+{Honeywell Technology Solutions}{Madurai, India}
+{Software Engineer}{Nov 2010 -- Nov 2011}
+
+\begin{itemize}[leftmargin=*]
+  \resumeItem{Developed 3D engineering simulation tools using OpenGL for aerospace systems \textbf{(C++, OpenGL)}}
+\end{itemize}
+
+\resumeSubheading
+{IBM India Private Limited}{Bengaluru, India}
+{Software Engineer}{Aug 2008 -- Sep 2010}
+
+\begin{itemize}[leftmargin=*]
+  \resumeItem{Built telecom network systems for routing and performance monitoring \textbf{(Networking, Backend Systems)}}
+\end{itemize}
+
+\end{itemize}
+
+%-----------LEADERSHIP-----------
+\section{Leadership \& Community Impact}
+\begin{itemize}[leftmargin=*]
+
+  \resumeItem{Node.js TSC Emeritus influencing ecosystem-level technical direction and governance}
+
+  \resumeItem{Top 1\% Stack Overflow contributor with 2,980+ answers impacting 29.1M+ developers globally}
+
+  \resumeItem{Organized and led JavaScript and Node.js meetups; speaker across Chennai and Bangalore developer communities}
+
+  \resumeItem{Speaker at Great International Developer Summit (GIDS) and multiple developer conferences}
+
+  \resumeItem{Delivered technical talks on Node.js Async Programming, Threads in Node.js, JavaScript Optimizations, Node.js Internals, Debugging Node.js Applications, and Git}
+
+\end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+\begin{itemize}[leftmargin=*]
+  \resumeSubheading
+    {Kamaraj College of Engineering \& Technology}{Tamil Nadu, India}
+    {Bachelor of Engineering in Computer Science}{2004 -- 2008}
+\end{itemize}
+
 \end{document}
