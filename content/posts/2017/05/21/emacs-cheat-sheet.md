@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "emacs - Cheat Sheet"
-date: 2017-05-21 21:37:45 +0530
+description: "A practical Emacs cheat sheet for vim users transitioning to Emacs. Covers essential key combinations for file operations, window splitting, cursor movement, editing, and copy-paste."
+date: 2017-05-21T21:37:45+05:30
 comments: true
 tags:
     - emacs

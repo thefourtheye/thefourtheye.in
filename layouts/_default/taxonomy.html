@@ -34,7 +34,7 @@
         </a>
         <time>{{ .PublishDate.Format .Site.Params.dateFormat }}</time>
       </li>
-      <p style="text-align: left">{{ .Description }}</p>
+      <p style="text-align: left">{{ .Description | default (index .Params "description") | default .Summary }}</p>
       <p style="text-align: left">
         {{ range .Params.Tags }}
         <a class="link" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>

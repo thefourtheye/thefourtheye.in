@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "JavaScript lookbehind RegEx alternative"
-date: 2017-02-21 21:33:13 +0530
+description: "Workaround for JavaScript's lack of regex lookbehind using a two-step replace-and-split approach with a marker character to match conditional commas."
+date: 2017-02-21T21:33:13+05:30
 comments: true
 tags:
     - javascript

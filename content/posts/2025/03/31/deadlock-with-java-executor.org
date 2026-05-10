@@ -1,5 +1,5 @@
 #+TITLE: Deadlock with Java ThreadPoolExecutor
-#+DESCRIPTION: In this post I share how I ended up with a Deadlock in a Java ThreadPoolExecutor program.
+#+DESCRIPTION: Demonstrates how ThreadPoolExecutor can cause deadlocks when parent tasks wait for child tasks that require the same executor. Shows deadlock scenario and potential workarounds.
 #+DATE: 2025-03-31T09:16:15+05:30
 #+DRAFT: false
 #+TAGS: java
