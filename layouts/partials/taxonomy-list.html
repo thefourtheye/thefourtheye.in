@@ -17,17 +17,18 @@
   <h3>{{ .Key }}</h3>
   <ul style="border-left: 1px solid var(--fg4); list-style-type: none; margin-left: 0.5rem; padding-left: 1.1rem;">
   {{ range .Pages }}
-    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
-      <span style="color: var(--blue); margin-right: 0.5em; margin-top: 0.1em;">▸</span>
-      <div style="flex: 1;">
-        <a class="post-link" href="{{ .RelPermalink }}" style="font-size: 1.1em;">{{ .Title }}</a>
-        <time>{{ .PublishDate.Format $.Site.Params.dateFormat }}</time>
-        <p style="font-size: 0.85em; font-style: italic; margin-top: 0.25rem;">{{ .Description | default (index .Params "description") | default .Summary }}</p>
-        <p style="text-align: left">
-          {{ range .Params.Tags }}
-          <a class="link" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
-          {{ end }}
-        </p>
+<li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <span style="color: var(--blue); margin-right: 0.5em; margin-top: 0.1em;">▸</span>
+        <div style="flex: 1;">
+          <a class="post-link" href="{{ .RelPermalink }}" style="font-size: 1.1em;">{{ .Title }}</a>
+          <time>{{ .PublishDate.Format $.Site.Params.dateFormat }}</time>
+          <p style="text-align: left; margin-top: 0.25rem;">
+            {{ range .Params.Tags }}
+            <a class="link" style="color: var(--orange);" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
+            {{ end }}
+          </p>
+          <p style="font-size: 0.85em; font-style: italic; margin-top: 0.25rem;">{{ .Description | default (index .Params "description") | default .Summary }}</p>
+        </div>
       </li>
   {{ end }}
   </ul>

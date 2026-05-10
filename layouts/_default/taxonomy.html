@@ -32,12 +32,12 @@
         <div style="flex: 1;">
           <a class="post-link" href="{{ .RelPermalink }}" style="font-size: 1.1em;">{{ .Title }}</a>
           <time>{{ .PublishDate.Format .Site.Params.dateFormat }}</time>
-          <p style="font-size: 0.85em; font-style: italic; margin-top: 0.25rem;">{{ .Description | default (index .Params "description") | default .SUMMARY }}</p>
-          <p style="text-align: left">
+          <p style="text-align: left; margin-top: 0.25rem;">
             {{ range .Params.Tags }}
-            <a class="link" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
+            <a class="link" style="color: var(--orange);" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
             {{ end }}
           </p>
+          <p style="font-size: 0.85em; font-style: italic; margin-top: 0.25rem;">{{ .Description | default (index .Params "description") | default .Summary }}</p>
         </div>
       </li>
     {{ end }}

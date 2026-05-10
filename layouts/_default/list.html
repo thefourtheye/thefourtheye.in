@@ -80,17 +80,17 @@ h2 {
     <h3>{{ dateFormat "January 2006" (printf "%s-01" .Key) }}</h3>
     <ul>
       {{ range .Pages }}
-      <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+<li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
         <span style="color: var(--blue); margin-right: 0.5em; margin-top: 0.1em;">▸</span>
         <div style="flex: 1;">
           <a class="post-link" href="{{ .RelPermalink }}" style="font-size: 1.1em;">{{ .Title }}</a>
           <time>{{ .PublishDate.Format .Site.Params.dateFormat }}</time>
-          <p style="font-size: 0.85em; font-style: italic; margin-top: 0.25rem;">{{ .Description | default (index .Params "description") | default .Summary }}</p>
-          <p style="text-align: left">
+          <p style="text-align: left; margin-top: 0.25rem;">
             {{ range .Params.Tags }}
-            <a class="link" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
+            <a class="link" style="color: var(--orange);" href='{{ "tags" | relURL }}/{{ . | urlize }}'>#{{ . }}</a>
             {{ end }}
           </p>
+          <p style="font-size: 0.85em; font-style: italic; margin-top: 0.25rem;">{{ .Description | default (index .Params "description") | default .Summary }}</p>
         </div>
       </li>
       {{ end }}
