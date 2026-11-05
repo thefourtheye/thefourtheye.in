@@ -3,7 +3,6 @@ baseURL = "https://thefourtheye.in"
 enableGitInfo = true
 enableRobotsTXT = true
 hasCJKLanguage = true
-languageCode = "en-us"
 locale = "en"
 rssLimit = 10
 theme = "hugo-texify3"
