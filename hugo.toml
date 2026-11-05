@@ -153,3 +153,6 @@ enableInlineShortcodes = true
   [privacy.googleAnalytics]
     disable = false
     respectDoNotTrack = true
+
+[security]
+  allowContent = ['^text/html$', '^text/markdown$', '^text/org$']
