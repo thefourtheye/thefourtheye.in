@@ -1,6 +1,5 @@
 title = "thefourtheye.in"
 baseURL = "https://thefourtheye.in"
-disqusShortname = "thefourtheye"
 enableGitInfo = true
 enableRobotsTXT = true
 hasCJKLanguage = true
