@@ -1,4 +1,4 @@
-.PHONY: help clean clean-deploy build test copy deploy
+.PHONY: help clean clean-deploy build test copy deploy spas-export
 
 DEPLOY_DIR := ../thefourtheye.github.io
 
@@ -17,12 +17,11 @@ clean:
 	rm -rf public
 
 clean-deploy:
+	test -d $(DEPLOY_DIR)/.git || { echo "$(DEPLOY_DIR) is not a git repo"; exit 1; }
 	cd $(DEPLOY_DIR) && find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.*' -exec rm -rf {} +
 
 static/Resume.pdf: static/Resume.tex
-	@cd static && pdflatex -interaction=nonstopmode Resume.tex
-	@cd static && pdflatex -interaction=nonstopmode Resume.tex
-	@cd static && rm -f Resume.aux Resume.log Resume.out
+	@cd static && pdflatex -interaction=nonstopmode Resume.tex && pdflatex -interaction=nonstopmode Resume.tex && rm -f Resume.aux Resume.log Resume.out
 
 build: static/Resume.pdf
 	hugo
@@ -35,3 +34,6 @@ copy:
 
 deploy: clean build clean-deploy copy
 	@echo "Deploy complete"
+# SPAs export target
+spas-export:
+	cd ../spas && npm run export-and-inject
