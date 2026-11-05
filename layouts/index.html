@@ -10,7 +10,7 @@ minify | fingerprint }}
 {{ define "main" }}
 <main class="grid-container">
     <div id="content" class="index">
-        {{ with .Site.GetPage "_index.md" }}
+        {{ with .Site.GetPage "_index.org" }}
             {{ .Content }}
         {{ end }}
 
