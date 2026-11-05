@@ -2,6 +2,13 @@
 
 Hugo-based blog for thefourtheye.in
 
+## Prerequisites
+
+- Hugo (extended) with `postcss` on `PATH`; the theme's CSS is processed
+  through PostCSS during the build.
+- Install PostCSS globally: `npm i -g postcss postcss-cli`
+- `pdflatex` for `make build` / `make deploy` (Resume compilation).
+
 ## Make Commands
 
 | Command | Description |
