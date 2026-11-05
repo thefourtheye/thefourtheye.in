@@ -5,7 +5,7 @@
     {{ if .Site.Params.sharingbuttons.facebook }}
     <a class="resp-sharing-button__link"
     href="https://facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank"
-    rel="noopener" aria-label="">
+    rel="noopener" aria-label="Share on Facebook">
       <div class="resp-sharing-button resp-sharing-button--facebook
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -21,7 +21,7 @@
     {{ if .Site.Params.sharingbuttons.twitter }}
     <a class="resp-sharing-button__link"
     href="https://twitter.com/intent/tweet/?text={{ $title }}&amp;url={{ $url
-    }}" target="_blank" rel="noopener" aria-label="">
+    }}" target="_blank" rel="noopener" aria-label="Share on Twitter">
       <div class="resp-sharing-button resp-sharing-button--twitter
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -41,7 +41,7 @@
     <!-- EMail -->
     {{ if .Site.Params.sharingbuttons.email }}
     <a class="resp-sharing-button__link" href="mailto:?subject={{ $title
-    }}&amp;body={{ $url }}" target="_self" rel="noopener" aria-label="">
+    }}&amp;body={{ $url }}" target="_self" rel="noopener" aria-label="Share on Email">
       <div class="resp-sharing-button resp-sharing-button--email
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -63,7 +63,7 @@
     {{ if .Site.Params.sharingbuttons.linkedin }}
     <a class="resp-sharing-button__link"
     href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url }}"
-    target="_blank" rel="noopener" aria-label="">
+    target="_blank" rel="noopener" aria-label="Share on LinkedIn">
       <div class="resp-sharing-button resp-sharing-button--linkedin
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -81,7 +81,7 @@
     {{ if .Site.Params.sharingbuttons.reddit }}
     <a class="resp-sharing-button__link" href="https://reddit.com/submit/?url={{
     $url }}&amp;resubmit=true&amp;title={{ $title }}" target="_blank"
-    rel="noopener" aria-label="">
+    rel="noopener" aria-label="Share on Reddit">
       <div class="resp-sharing-button resp-sharing-button--reddit
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -109,7 +109,7 @@
     <!-- WhatsApp -->
     {{ if .Site.Params.sharingbuttons.whatsapp }}
     <a class="resp-sharing-button__link" href="whatsapp://send?text={{ $url }}"
-    target="_blank" rel="noopener" aria-label="">
+    target="_blank" rel="noopener" aria-label="Share on WhatsApp">
       <div class="resp-sharing-button resp-sharing-button--whatsapp
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -134,7 +134,7 @@
     {{ if .Site.Params.sharingbuttons.hackernews }}
     <a class="resp-sharing-button__link"
     href="https://news.ycombinator.com/submitlink?u={{ $url }}&amp;t={{ $title
-    }}" target="_blank" rel="noopener" aria-label="">
+    }}" target="_blank" rel="noopener" aria-label="Share on Hacker News">
       <div class="resp-sharing-button resp-sharing-button--hackernews
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -154,7 +154,7 @@
     {{ if .Site.Params.sharingbuttons.telegram }}
     <a class="resp-sharing-button__link"
     href="https://telegram.me/share/url?text={{ $title }}&amp;url={{ $url }}"
-    target="_blank" rel="noopener" aria-label="">
+    target="_blank" rel="noopener" aria-label="Share on Telegram">
       <div class="resp-sharing-button resp-sharing-button--telegram
       resp-sharing-button--small"><div aria-hidden="true"
       class="resp-sharing-button__icon resp-sharing-button__icon--solid">
