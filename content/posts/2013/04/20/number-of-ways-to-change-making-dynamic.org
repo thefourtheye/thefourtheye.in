@@ -1,0 +1,40 @@
+---
+title: "Number of ways to change making (Dynamic Programming)"
+description: "A variant of the change making problem that counts the number of distinct ways to make change for a given amount using dynamic programming with coin denominations."
+date: 2013-04-20T17:51:00+05:30
+tags:
+  - "Dynamic Programming"
+  - "Sport Programming"
+  - "UVa"
+aliases:
+  - "/2013/04/20/number-of-ways-to-change-making-dynamic/"
+  - "/2013/04/20/number-of-ways-to-change-making-dynamic.html"
+  - "/2013/04/number-of-ways-to-change-making-dynamic/"
+  - "/2013/04/number-of-ways-to-change-making-dynamic.html"
+---
+
+This is a variant of [[http://dfourtheye.blogspot.com/2013/04/change-making-dynamic-programming.html][change making problem]]. Here, we are just asked to count the number of ways to make the specific change. With a little change to the change making problem's solution, we can solve this one. The problems which can be solved with the following solution are
+
+#+BEGIN_EXAMPLE
+UVa - 657 - Coin Change
+
+UVa - 357 - Let Me Count The Ways (Need to change the way solution is printed as per problem description)
+#+END_EXAMPLE
+
+#+BEGIN_SRC cpp
+# include <iostream>
+# include <cstdio>
+using namespace std;
+unsigned long long NumberOfWays [30001], Coins []= {1, 5, 10, 25, 50}, Num;
+int main ()
+{
+ //freopen ("Input.txt", "r", stdin);
+ //freopen ("Scratch.txt", "w", stdout);
+ NumberOfWays[0] = 1;
+ for (int i = 0; i < 5; i++)
+  for (int j = Coins[i]; j < 30001; j++)
+   NumberOfWays [j] += NumberOfWays [j - Coins[i]];
+ while (scanf ("%lld", &Num) != EOF)
+  printf ("%lld\n", NumberOfWays[Num]); //Change this for UVa - 357 - Let Me Count The Ways
+}
+#+END_SRC

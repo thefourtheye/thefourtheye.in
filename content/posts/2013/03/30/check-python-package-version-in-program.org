@@ -1,0 +1,34 @@
+---
+title: "Check python package version in program"
+description: "Shows how to check Python package versions at runtime using pkg_resources. Demonstrates getting both the full distribution object and just the version string."
+date: 2013-03-30T09:31:00+05:30
+tags:
+  - "Python"
+aliases:
+  - "/2013/03/30/check-python-package-version-in-program/"
+  - "/2013/03/30/check-python-package-version-in-program.html"
+  - "/2013/03/check-python-package-version-in-program/"
+  - "/2013/03/check-python-package-version-in-program.html"
+---
+
+I have always wanted to check the version of the python packages which I am using. Today I found a way to find that.\\
+\\
+As stated here,\\
+\\
+[[http://stackoverflow.com/questions/710609/checking-python-module-version-at-runtime]]\\
+
+#+BEGIN_SRC python
+>>> pkg_resources.get_distribution('web.py')
+web.py 0.37 (/usr/local/lib/python2.7/dist-packages/web.py-0.37-py2.7.egg)
+#+END_SRC
+
+\\
+
+To get just the version, you can do
+
+\\
+
+#+BEGIN_SRC python
+>>> pkg_resources.get_distribution('web.py').version
+'0.37'
+#+END_SRC

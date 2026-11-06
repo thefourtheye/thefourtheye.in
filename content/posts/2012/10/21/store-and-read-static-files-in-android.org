@@ -1,0 +1,68 @@
+---
+title: "Store and read static files in Android"
+description: "Explains how to bundle and read static files (like text files) in Android applications by placing them in the res/raw directory and accessing them via Resource.openRawResource()."
+date: 2012-10-21T00:45:00+05:30
+tags:
+  - "Android"
+aliases:
+  - "/2012/10/21/store-and-read-static-files-in-android/"
+  - "/2012/10/21/store-and-read-static-files-in-android.html"
+  - "/2012/10/store-and-read-static-files-in-android/"
+  - "/2012/10/store-and-read-static-files-in-android.html"
+---
+
+Recently I was writing an Android application, in which I had to read data from a static text file. I did not know where to keep the file and how to refer that file in the program (in windows/*nix OS we used to provide path to the file in file system). After surfing the internet enough, found a solution to this problem.\\
+\\
+Note: This post helps you to read from a static application specific internal files.\\
+\\
+1) The IDE which I used to develop Android applications is Eclipse and I assume that you already have an Android project opened and the static file to be read.\\
+\\
+2) The name of the static file which I am going to use in this example is dictionary.txt\\
+\\
+3) In the directory structure of an Android project, there will be a directory called "res". Create a directory called "raw" inside the "res" directory and import the file to be read in that directory. All the files added to the raw folder will be read-only. (And I don't think we can refer them as files anymore. So that data can be read as shown in step 6). The directory structure might look like this\\
+
+[[http://4.bp.blogspot.com/-AY2IMv2dumM/UILv-BzXbtI/AAAAAAAABSc/iubW7BFWrvo/s1600/AndroidProjectStructure.png][[[http://4.bp.blogspot.com/-AY2IMv2dumM/UILv-BzXbtI/AAAAAAAABSc/iubW7BFWrvo/s1600/AndroidProjectStructure.png]​​]]]
+
+\\
+
+4) After adding the file, just Build the Project and make sure that build is successful.
+
+\\
+
+5) Now, in the "gen" directory, inside your package, Open the R.java file. You might get to see something similar to this
+
+\\
+
+    public static final class raw {
+
+        public static final int dictionary=0x......;
+
+    }
+
+\\
+\\
+6) Now, this static file will be included in the ".apk" file. As to read from the file, the following piece of code would do that job. You may have to add the appropriate try-catch blocks.\\
+\\
+BufferedReader filereader = new BufferedReader(\\
+   new InputStreamReader (ctx.getResources().openRawResource \\
+   (R.raw.dictionary)));\\
+\\
+String lineread = "";\\
+while ((lineread = filereader.readLine()) != null)\\
+{\\
+   System.err.println ("Read " + lineread);\\
+}\\
+
+filereader.close();
+
+\\
+
+7) In order to view the files in development environment or emulator itself, there is a perspective called DDMS in Eclipse, just switch to that and have your Android Virtual Device started.
+
+\\
+
+[[http://2.bp.blogspot.com/-G7nW7H78T1U/UIL16OQaSMI/AAAAAAAABSs/9LpSasvcXR4/s1600/DDMS.png][[[http://2.bp.blogspot.com/-G7nW7H78T1U/UIL16OQaSMI/AAAAAAAABSs/9LpSasvcXR4/s640/DDMS.png]​​]]]
+
+\\
+
+8) The application specific files can be found in data/data/<your package name>/files

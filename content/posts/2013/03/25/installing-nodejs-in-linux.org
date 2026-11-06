@@ -1,0 +1,34 @@
+---
+title: "Installing node.js in Linux"
+description: "Step-by-step guide to install Node.js from source on Linux (tested on RHEL 5.4 and Ubuntu 12.10). Covers wget, configure, make, and verifying installation with a simple HTTP server example."
+date: 2013-03-25T20:59:00+05:30
+tags:
+  - "Node.js"
+aliases:
+  - "/2013/03/25/installing-nodejs-in-linux/"
+  - "/2013/03/25/installing-nodejs-in-linux.html"
+  - "/2013/03/installing-nodejs-in-linux/"
+  - "/2013/03/installing-nodejs-in-linux.html"
+---
+
+I tested these steps in RHEL 5.4 and Ubuntu 12.10.\\
+\\
+1. wget http://nodejs.org/dist/v0.10.1/node-v0.10.1.tar.gz
+2. tar -xvf node-v0.10.1.tar.gz
+3. cd node-v0.10.1
+4. ./configure --prefix=<a directory to which you have write and execute access>
+5. make
+6. make install
+7. Create a file, say Test.js and add the following lines to it\\
+   var http = require('http');\\
+   \\
+   http.createServer(function (request, response) {\\
+     response.writeHead(200, {'Content-Type': 'text/plain'});\\
+     response.end('Hello World\n');\\
+   }).listen(8124);\\
+   \\
+   console.log('Server running at http://127.0.0.1:8124/');
+8. node Test.js
+9. Open a browser and visit http://127.0.0.1:8124/. If all went fine, you should see Hello World in the browser.
+
+It is as simple as that. I did not hit any road block at all. They all went fine.

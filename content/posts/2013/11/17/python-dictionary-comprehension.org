@@ -1,0 +1,51 @@
+---
+title: "Python Dictionary Comprehension"
+description: "Python dictionary comprehensions from Python 3 backported to 2.7. Shows conversion from list of lists, conditional key/value expressions, and performance comparison to loops."
+date: 2013-11-17T13:35:00+05:30
+tags:
+  - "Python"
+aliases:
+  - "/2013/11/17/python-dictionary-comprehension/"
+  - "/2013/11/17/python-dictionary-comprehension.html"
+  - "/2013/11/python-dictionary-comprehension/"
+  - "/2013/11/python-dictionary-comprehension.html"
+---
+
+Dictionary comprehensions were [[http://docs.python.org/2.7/whatsnew/2.7.html#other-language-changes][backported from Python 3.x to 2.7]]. I always have believed that they are very pythonic and functional way of programming. Whenever comprehension is used, mutation of mutable elements (set, dict, list etc) becomes unnecessary and that definitely improves the performance as well. Lets start with a simple dictionary comprehension
+
+#+BEGIN_SRC python
+>>> myMatrix = [[1, 100], [2, 200], [3, 300]]
+>>> {key:value for key, value in myMatrix}
+{1: 100, 2: 200, 3: 300}
+#+END_SRC
+
+Here we use unpacking from =myMatrix= list and we have used ={}= with =key:value= notation. This way, we can easily convert a list of lists to a dictionary with dictionary comprehension. Lets look at a complicated example
+
+#+BEGIN_SRC python
+>>> myMatrix = [[100, 100], [20, 200], [30, 300]]
+>>> {(key + 100 if key = 200 else value/5) for key, value in myMatrix}
+{120: 20, 130: 30, 100: 20}
+#+END_SRC
+
+Here we use [[http://docs.python.org/2/reference/expressions.html#conditional-expressions][conditional expressions]] to dynamically decide what the key and the value are going to be.
+
+** Performance
+:PROPERTIES:
+:CUSTOM_ID: performance
+:END:
+
+#+BEGIN_SRC python
+>>> def changeDict():
+...     newDict = {}
+...     for key, value in myMatrix:
+...         newDict[(key + 100 if key = 200 else value/5
+...     return newDict
+...
+>>> from timeit import timeit
+>>> timeit("{(key + 100 if key = 200 else value/5) for key, value in myMatrix}", setup="from __main__ import myMatrix")
+0.7076609134674072
+>>> timeit("changeDict()", setup="from __main__ import myMatrix, changeDict")
+0.7484149932861328
+#+END_SRC
+
+The use of comprehension is slightly faster than the function which adds keys and values to an existing dictionary. This difference will be significant when the =myMatrix= has huge amount of data.

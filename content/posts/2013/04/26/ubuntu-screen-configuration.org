@@ -1,0 +1,47 @@
+---
+title: "Ubuntu Screen Configuration"
+description: "Custom GNU Screen configuration for Ubuntu with status bar showing terminal numbers, hostname, date, and time. Includes .screenrc settings for keybindings and window management."
+date: 2013-04-26T18:21:00+05:30
+tags:
+  - "Ubuntu"
+aliases:
+  - "/2013/04/26/ubuntu-screen-configuration/"
+  - "/2013/04/26/ubuntu-screen-configuration.html"
+  - "/2013/04/ubuntu-screen-configuration/"
+  - "/2013/04/ubuntu-screen-configuration.html"
+---
+
+As we all know Screen is an excellent program. Here is how my ~/.screenrc looks like\\
+\\
+
+#+BEGIN_SRC text
+   vbell off
+   defscrollback 10000
+   hardstatus on
+   hardstatus alwayslastline "%{wk}%-w%{kw}%n %t%{-}%+w %=%{Gk} %H %{Wk} %d-%M-%Y %C:%s %a %D "
+   termcapinfo xterm ti@:te@
+   startup_message off
+   msgwait 1
+   altscreen on
+   escape ``
+   bind c screen 1
+   bind ^c screen 1
+   bind 0 select 10
+   screen 1
+#+END_SRC
+
+\\
+And this is how it looks in action\\
+\\
+[[http://2.bp.blogspot.com/-BL4V5Noauwk/UXp4GEPsT1I/AAAAAAAAADg/Mty9ljLzf-k/s1600/Screen+-+Terminal+2013-04-25+17:02:11.png][[[http://2.bp.blogspot.com/-BL4V5Noauwk/UXp4GEPsT1I/AAAAAAAAADg/Mty9ljLzf-k/s320/Screen+-+Terminal+2013-04-25+17:02:11.png]​​]]]\\
+\\
+
+1. blockquote (the key right above Tab key) will be the command character
+2. As you see in the image, the screen numbers will begin with 1
+3. The bottom bar shows list of open terminals, machine name, date, time, weekday
+4. `+c will create a new terminal
+5. `+1,`+2,`+3,... will switch to the respective terminals
+
+\\
+\\
+\\

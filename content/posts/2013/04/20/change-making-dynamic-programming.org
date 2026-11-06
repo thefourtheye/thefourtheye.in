@@ -1,0 +1,49 @@
+---
+title: "Change Making (Dynamic Programming) Problem"
+description: "Classic dynamic programming problem to find the minimum number of coins needed to make a given change. Uses a bottom-up approach with sorted denominations to compute optimal solution."
+date: 2013-04-20T17:39:00+05:30
+tags:
+  - "Dynamic Programming"
+  - "Sport Programming"
+  - "TJU"
+aliases:
+  - "/2013/04/20/change-making-dynamic-programming/"
+  - "/2013/04/20/change-making-dynamic-programming.html"
+  - "/2013/04/change-making-dynamic-programming/"
+  - "/2013/04/change-making-dynamic-programming.html"
+---
+
+This is a classic [[http://en.wikipedia.org/wiki/Change-making_problem][change making problem]].\\
+A variant of the same problem, counting the number of ways to make the change is [[http://dfourtheye.blogspot.in/2013/04/number-of-ways-to-change-making-dynamic.html][here]]
+
+#+BEGIN_EXAMPLE
+Problem Name : Making Change
+Problem ID   : 2768
+Problem URL  : http://acm.tju.edu.cn/toj/showp2768.html
+Solution     :
+#+END_EXAMPLE
+
+#+BEGIN_SRC cpp
+# include <iostream>
+# include <cstdio>
+# include <cstring>
+# include <algorithm>
+int denoms [10];
+int change [1001];
+using namespace std;
+int main()
+{
+ //freopen ("Input.txt", "r", stdin);
+ //freopen ("Scratch.txt", "w", stdout);
+ int C, N;
+ scanf ("%d%d", &C, &N);
+ fill (change, change + C + 1, 10000);
+ for (int i = 0; i < N; i++) scanf ("%d", &denoms[i]);
+ sort (denoms, denoms + N);
+ change[0] = 0;
+ for (int j = 0; j < N; j++)
+  for (int i = denoms[j]; i <= C; i++)
+   change[i] = min (change[i], change[i - denoms[j]] + 1);
+ printf ("%d\n", change[C]);
+}
+#+END_SRC

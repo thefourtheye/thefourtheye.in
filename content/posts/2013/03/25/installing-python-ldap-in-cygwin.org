@@ -1,0 +1,80 @@
+---
+title: "Installing python-ldap in cygwin"
+description: "Installing python-ldap in Cygwin requires multiple dependencies. Details the installation process including the required libraries and common errors encountered during the build process."
+date: 2013-03-25T21:04:00+05:30
+tags:
+  - "Python"
+aliases:
+  - "/2013/03/25/installing-python-ldap-in-cygwin/"
+  - "/2013/03/25/installing-python-ldap-in-cygwin.html"
+  - "/2013/03/installing-python-ldap-in-cygwin/"
+  - "/2013/03/installing-python-ldap-in-cygwin.html"
+---
+
+Installing python-ldap in cygwin took a while for me. When I tried to install with\\
+\\
+easy_install python-ldap\\
+\\
+I got this error\\
+\\
+Searching for python-ldap\\
+Reading http://pypi.python.org/simple/python-ldap/\\
+Reading http://www.python-ldap.org/\\
+Best match: python-ldap 2.4.10\\
+Downloading http://pypi.python.org/packages/source/p/python-ldap/python-ldap-2.4.10.tar.gz#md5=a15827ca13c90e9101e5e9405c1d83be\\
+Processing python-ldap-2.4.10.tar.gz\\
+Running python-ldap-2.4.10/setup.py -q bdist_egg --dist-dir /tmp/easy_install-JXhRAd/python-ldap-2.4.10/egg-dist-tmp-1wRZxP\\
+defines: HAVE_SASL HAVE_TLS HAVE_LIBLDAP_R\\
+extra_compile_args:\\
+extra_objects:\\
+include_dirs: /opt/openldap-RE24/include /usr/include/sasl /usr/include\\
+library_dirs: /opt/openldap-RE24/lib /usr/lib\\
+libs: ldap_r\\
+file Lib/ldap.py (for module ldap) not found\\
+file Lib/ldap/controls.py (for module ldap.controls) not found\\
+file Lib/ldap/extop.py (for module ldap.extop) not found\\
+file Lib/ldap/schema.py (for module ldap.schema) not found\\
+warning: no files found matching 'Makefile'\\
+warning: no files found matching 'Modules/LICENSE'\\
+file Lib/ldap.py (for module ldap) not found\\
+file Lib/ldap/controls.py (for module ldap.controls) not found\\
+file Lib/ldap/extop.py (for module ldap.extop) not found\\
+file Lib/ldap/schema.py (for module ldap.schema) not found\\
+file Lib/ldap.py (for module ldap) not found\\
+file Lib/ldap/controls.py (for module ldap.controls) not found\\
+file Lib/ldap/extop.py (for module ldap.extop) not found\\
+file Lib/ldap/schema.py (for module ldap.schema) not found\\
+build/temp.cygwin-1.7.17-i686-2.7/Modules/LDAPObject.o: In function `l_ldap_result4':\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/LDAPObject.c:988: undefined reference to `_ber_bvfree'\\
+build/temp.cygwin-1.7.17-i686-2.7/Modules/ldapcontrol.o: In function `encode_rfc3876':\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:216: undefined reference to `_ber_alloc_t'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:227: undefined reference to `_ber_flatten'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:237: undefined reference to `_ber_free'\\
+build/temp.cygwin-1.7.17-i686-2.7/Modules/ldapcontrol.o: In function `decode_rfc2696':\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:315: undefined reference to `_ber_init'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:320: undefined reference to `_ber_scanf'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:330: undefined reference to `_ber_free'\\
+build/temp.cygwin-1.7.17-i686-2.7/Modules/ldapcontrol.o: In function `encode_rfc2696':\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:258: undefined reference to `_ber_alloc_t'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:263: undefined reference to `_ber_printf'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:272: undefined reference to `_ber_printf'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:278: undefined reference to `_ber_printf'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:284: undefined reference to `_ber_flatten'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:293: undefined reference to `_ber_free'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/ldapcontrol.c:270: undefined reference to `_ber_printf'\\
+build/temp.cygwin-1.7.17-i686-2.7/Modules/message.o: In function `LDAPmessage_to_python':\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/message.c:160: undefined reference to `_ber_free'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/message.c:199: undefined reference to `_ber_memvfree'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/message.c:243: undefined reference to `_ber_bvfree'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/message.c:134: undefined reference to `_ber_free'\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/message.c:237: undefined reference to `_ber_bvfree'\\
+build/temp.cygwin-1.7.17-i686-2.7/Modules/options.o: In function `LDAP_set_option':\\
+/tmp/easy_install-JXhRAd/python-ldap-2.4.10/Modules/options.c:70: undefined reference to `_ber_pvt_opt_on'\\
+collect2: ld returned 1 exit status\\
+error: Setup script exited with error: command 'gcc' failed with exit status 1\\
+\\
+Then I just tried to install a version of python-ldap prior to 2.4.10, like this\\
+\\
+easy_install -N -S /usr/lib/python2.7/site-packages  -d /usr/lib/python2.7/site-packages -s /usr/local/bin  python-ldap==2.4.3\\
+\\
+Voila. It worked fine :)

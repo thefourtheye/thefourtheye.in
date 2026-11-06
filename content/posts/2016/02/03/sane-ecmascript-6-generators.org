@@ -1,0 +1,116 @@
+---
+title: "Sane ECMAScript 6 Generators"
+description: "Comparing ES6 Generators to Python generators - shows key difference where breaking out of a for-of loop closes the generator in JavaScript but not in Python."
+date: 2016-02-03T20:47:00+05:30
+tags:
+  - "JavaScript"
+  - "ECMAScript 6"
+  - "Node.js"
+aliases:
+  - "/2016/02/03/sane-ecmascript-6-generators/"
+  - "/2016/02/03/sane-ecmascript-6-generators.html"
+  - "/2016/02/sane-ecmascript-6-generators/"
+  - "/2016/02/sane-ecmascript-6-generators.html"
+---
+
+This post is cross posted in Medium, [[https://medium.com/@thefourtheye/sane-ecmascript-6-generators-7d1adcd85536#.cpvn9y4n8][here]].\\
+\\
+I recently found one interesting thing about ES6 Generators. I come from Python background and I understood generators as in Python. So, I expected the following Python code's equivalent ECMAScript 6 code also to work as well.\\
+
+#+BEGIN_SRC python
+>>> numbers = (num for num in range(10))
+>>> for num in numbers:
+...   if num == 3:
+...     break
+...
+>>> next(numbers)
+4
+#+END_SRC
+
+You can find the online demo for this Python program, [[http://ideone.com/9lYJOz][here]].\\
+\\
+But then, when I used Babel to transpile the following code and executed it\\
+
+#+BEGIN_SRC js
+function* NumberGenerator() {
+  for (var i = 0; i < 10; i += 1) {
+    yield i;
+  }
+}
+
+var numbers = NumberGenerator();
+
+for (var num of numbers) {
+  if (num === 3) {
+    break;
+  }
+}
+
+console.log(numbers.next());
+// {"done":true}
+#+END_SRC
+
+You can find the online demo for this JavaScript program, made with Babel's REPL, [[https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=true&code=function*%20NumberGenerator()%20%7B%0A%20%20for%20(var%20i%20%3D%200%3B%20i%20%3C%2010%3B%20i%20%2B%3D%201)%20%7B%0A%20%20%20%20yield%20i%3B%0A%20%20%7D%0A%7D%0A%0Avar%20numbers%20%3D%20NumberGenerator()%3B%0A%0Afor%20(var%20num%20of%20numbers)%20%7B%0A%20%20if%20(num%20%3D%3D%3D%203)%20%7B%0A%20%20%20%20break%3B%0A%20%20%7D%0A%7D%0A%0Aconsole.log(numbers.next())%3B%0A][here]]. As you see here, when I broke out of the loop, the Generator Object got closed. This was pointed out to me by [[http://stackoverflow.com/users/785065/loganfsmyth][Logan Smyth]] in Babel's Slack discussion. I was really surprised by this behavior and found the [[http://www.ecma-international.org/ecma-262/6.0/#sec-runtime-semantics-forin-div-ofbodyevaluation-lhs-stmt-iterator-lhskind-labelset][13.7.5.13 Runtime Semantics: ForIn/OfBodyEvaluation ( lhs, stmt, iterator, lhsKind, labelSet )]] section in the ECMAScript 6 Specification, which says
+
+#+begin_quote
+If LoopContinues(result, labelSet) is false, return IteratorClose(iterator, UpdateEmpty(result, V)).
+#+end_quote
+
+I am not sure about the rationale behind that decision, but I am convinced that it would effectively limit the potential of the Generators. So I decided to fix this.
+
+** Sane Generators
+:PROPERTIES:
+:CUSTOM_ID: sane-generators
+:END:
+To close the iterator, =Iterator.prototype.return= is called. (At the time of this writing, not many JavaScript Engines support this function. You can find the support for this feature by popular engines, [[https://kangax.github.io/compat-table/es6/#test-generators_yield_*,_iterator_closing][here]].) So I decided to override that and allow the actual =return= function to be invoked only when explicitly called with an argument.
+
+#+BEGIN_SRC js
+function returnFunction(originalReturn, genObject) {
+  return function(arg) {
+    return arguments.length ? originalReturn.call(genObject, arg) : {
+      done: false
+    };
+  };
+}
+
+function SaneGenerator(genObject) {
+  var originalReturn = genObject['return'];
+
+  if (typeof originalReturn === 'function') {
+    Object.defineProperty(genObject, 'return', {
+      value: returnFunction(originalReturn, genObject)
+    });
+  }
+
+  return genObject;
+}
+#+END_SRC
+
+You can see the actual and complete implementation in my GitHub repository, [[https://github.com/thefourtheye/sane-generator/blob/master/index.js][https://github.com/thefourtheye/sane-generator]]. Now, you can use the =SaneGenerator= like this
+
+#+BEGIN_SRC js
+function* NumberGenerator() {
+  for (var i = 0; i < 10; i += 1) {
+    yield i;
+  }
+}
+
+var numbers = SaneGenerator(NumberGenerator());
+
+for (var num of numbers) {
+  if (num === 3) {
+    break;
+  }
+}
+
+console.log(numbers.next());
+// {"value":4,"done":false}
+#+END_SRC
+
+You can find the online demo for this JavaScript program, made with Babel's REPL, [[https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=true&code=function%20returnFunction(originalReturn%2C%20genObject)%20%7B%0A%20%20return%20function(arg)%20%7B%0A%20%20%20%20return%20arguments.length%20%3F%20originalReturn.call(genObject%2C%20arg)%20%3A%20%7B%0A%20%20%20%20%20%20done%3A%20false%0A%20%20%20%20%7D%3B%0A%20%20%7D%3B%0A%7D%0A%0Afunction%20SaneGenerator(genObject)%20%7B%0A%20%20var%20originalReturn%20%3D%20genObject%5B'return'%5D%3B%0A%0A%20%20if%20(typeof%20originalReturn%20%3D%3D%3D%20'function')%20%7B%0A%20%20%20%20Object.defineProperty(genObject%2C%20'return'%2C%20%7B%0A%20%20%20%20%20%20value%3A%20returnFunction(originalReturn%2C%20genObject)%0A%20%20%20%20%7D)%3B%0A%20%20%7D%0A%0A%20%20return%20genObject%3B%0A%7D%0A%0Afunction*%20NumberGenerator()%20%7B%0A%20%20for%20(var%20i%20%3D%200%3B%20i%20%3C%2010%3B%20i%20%2B%3D%201)%20%7B%0A%20%20%20%20yield%20i%3B%0A%20%20%7D%0A%7D%0A%0Avar%20numbers%20%3D%20SaneGenerator(NumberGenerator())%3B%0A%0Afor%20(var%20num%20of%20numbers)%20%7B%0A%20%20if%20(num%20%3D%3D%3D%203)%20%7B%0A%20%20%20%20break%3B%0A%20%20%7D%0A%7D%0A%0Aconsole.log(numbers.next())%3B%0A][here]].
+
+** NPM Module
+:PROPERTIES:
+:CUSTOM_ID: npm-module
+:END:
+This is available as an NPM module now. [[https://www.npmjs.com/package/sane-generator]]

@@ -1,0 +1,103 @@
+---
+title: "Next Palindrome after a 1000000 digit number - SPOJ - PALIN"
+description: "A classic SPOJ problem requiring string manipulation to find the smallest palindrome greater than a given number with up to 1 million digits. Explains the algorithm approach using string reflection and handling edge cases like all-9s numbers."
+date: 2012-10-21T18:38:00+05:30
+tags:
+  - "SPOJ"
+  - "Sport Programming"
+aliases:
+  - "/2012/10/21/next-palindrome-after-1000000-digit/"
+  - "/2012/10/21/next-palindrome-after-1000000-digit.html"
+  - "/2012/10/next-palindrome-after-1000000-digit/"
+  - "/2012/10/next-palindrome-after-1000000-digit.html"
+---
+
+I always have afraid of the problems which require string processing, to be solved. This is one such problem. The problem description as stated in SPOJ ([[http://www.spoj.pl/problems/PALIN/]]) and my solution to this problem is [[http://ideone.com/osqLhp]] (I am sure, I can improve this code)\\
+\\
+* A positive integer is called a /palindrome/ if its representation in the decimal system is the same when read from left to right and from right to left. For a given positive integer K of not more than 1000000 digits, write the value of the smallest palindrome larger than K to output. Numbers are always displayed without leading zeros.
+:PROPERTIES:
+:CUSTOM_ID: a-positive-integer-is-called-a-palindrome-if-its-representation-in-the-decimal-system-is-the-same-when-read-from-left-to-right-and-from-right-to-left.-for-a-given-positive-integer-k-of-not-more-than-1000000-digits-write-the-value-of-the-smallest-palindrome-larger-than-k-to-output.-numbers-are-always-displayed-without-leading-zeros.
+:END:
+\\
+*** Input
+:PROPERTIES:
+:CUSTOM_ID: input
+:END:
+
+The first line contains integer t, the number of test cases. Integers K are given in the next t lines.
+
+*** Output
+:PROPERTIES:
+:CUSTOM_ID: output
+:END:
+
+For each K, output the smallest palindrome larger than K.
+
+*** Example
+:PROPERTIES:
+:CUSTOM_ID: example
+:END:
+
+*=Input:=*\\
+2\\
+808\\
+2133
+
+\\
+
+*=Output:=*\\
+818\\
+2222
+
+\\
+\\
+We know that, there is no integral data type which is as sophisticated as to accommodate a 1000000 digits number (a million digits in a number). So only option is to use string. And we also know what palindrome is. A number or a string of characters, is the same when expressed from left to right and right to left. For example, AMMA, MADAM, MALAYALAM, 11, 505, 797979797, ...\\
+\\
+Lets assume the input number as N. If we read through the problem, we are asked to find the next (greater than the number provided) palindrome which exists after the number N. As we see in the examples, 818 is the next big palindrome after 808 and 2222 is the next big palindrome after 2133. If the numbers are small, we can try brute-force approach.\\
+\\
+*** Brute force approach:
+:PROPERTIES:
+:CUSTOM_ID: brute-force-approach
+:END:
+\\
+1. Read the number N
+2. Increment by 1
+3. Check whether it is a palindrome or not
+4. If Yes, Print the number and exit
+5. If No, goto step 2
+
+\\
+
+This approach is quite simple and easy to implement. But, this may not work always when we have time constraints. If the number N becomes as big as a 1000000 digit number, program with this approach would produce output after a very long time. We all want our programs to produce outputs so quickly, don't we? Let us look at the approach which I followed to solve this problem.
+
+\\
+
+*** My approach:
+:PROPERTIES:
+:CUSTOM_ID: my-approach
+:END:
+
+1. Read the number as a string and store it in STR and the number of digits as N
+2. Split STR into two halves STR1 and STR3, if the number of digits in STR is odd, the middle digit will be in STR2 otherwise it is empty
+3. If the Reverse of STR1 is greater than STR3, Print STR1 + STR2 + Reverse (STR1) and exit
+4. make all digits of STR3 as '0'
+5. If N is even, 
+   1. increment STR1
+   2. Goto step 1 with input (Incremented STR1 + STR3)
+6. If N is odd, 
+   1. increment STR2
+      1. If Incremented STR2 is 10, 
+         1. set STR2 as "0"
+         2. increment STR1
+         3. Goto step 1 with input (Incremented STR1 + STR2 + STR3)
+      2. If Incremented STR2 is lesser than 10
+         1. Goto step 1 with input (STR1 + STR2 + STR3)
+
+The observation which I made after analyzing few examples is, if the second half of the number is smaller than the reverse of the first half of the number, just replacing the second half with the reverse of the first half produces the required output. If it is not smaller than the reverse of the first half, increment the first half and then replace the second half with the incremented first half. This is the basic idea but the above algorithm includes all the corner cases.
+
+\\
+*My solution:*
+
+#+BEGIN_EXPORT html
+<script type="text/javascript" src="http://ideone.com/api/embed.js/link/osqLhp"></script>
+#+END_EXPORT

@@ -1,0 +1,33 @@
+---
+title: "Project Euler - 15 - Lattice paths"
+description: "Project Euler Problem 15 - Lattice paths. Count routes through an NxN grid moving only right and down using dynamic programming. Solution builds from bottom-right corner."
+date: 2013-06-15T21:22:00+05:30
+tags:
+  - "Dynamic Programming"
+  - "Project Euler"
+  - "Sport Programming"
+aliases:
+  - "/2013/06/15/project-euler-15-lattice-paths_15/"
+  - "/2013/06/15/project-euler-15-lattice-paths_15.html"
+  - "/2013/06/project-euler-15-lattice-paths_15/"
+  - "/2013/06/project-euler-15-lattice-paths_15.html"
+---
+
+In this post we are dealing with [[http://projecteuler.net/problem=15][Project Euler - 15 - Lattice paths]]. This is one of the simple dynamic programming problems. We have to find the number of paths to reach the bottom right from the top left, moving only downwards and right sidewards. It was not so easy for me to see the solution even for the sample data given. It would be easy when we look from the bottom-left. For the sample 2x2 grid, lets say the bottom-left (2, 2) point has 0 path and 1,2 and 2,1 have 1 path each. It is evident that number of paths to reach (2, 2) from all the points on the bottom most row (0, 2), (1, 2) and the right most column (2, 0), (2, 1), as we cannot move upwards and left sidewards. Now, (1, 1) has two paths to reach (2, 2), either through (1, 2) or (2, 1). So it has the value 2. Same way, (0, 1) and (1, 0) have 3 ways ( (0, 1) can take (1, 1) (which has 2 paths to (2, 2) ) and (0, 2) (which has 1 path to (2, 2) ). So, (0, 0) has 6 paths to (2, 2) either via (0, 1) or via (1, 0). Applied this idea as a dynamic programming program and it solved this problem.\\
+
+#+BEGIN_SRC python
+Total = 21
+
+Array = [[0]*Total for i in xrange(Total)]
+for i in xrange(Total): Array[i][Total - 1], Array[Total - 1][i] = 1, 1   #Initializing bottom row and right column with 1
+
+def Rec(i, j):
+    global Array
+    if Array[i][j]: return Array[i][j]
+    Rec(i+1, j)
+    Rec(i, j+1)
+    Array[i][j] = Array[i+1][j] + Array[i][j+1]
+
+Rec (0, 0)
+print Array[0][0]
+#+END_SRC

@@ -6,6 +6,10 @@
 #+TAGS: executor
 #+CATEGORIES: programming
 #+CATEGORIES: learning
+#+ALIASES: /2025/03/31/deadlock-with-java-executor/
+#+ALIASES: /2025/03/31/deadlock-with-java-executor.html
+#+ALIASES: /2025/03/deadlock-with-java-executor/
+#+ALIASES: /2025/03/deadlock-with-java-executor.html
 
 * Introduction
 
@@ -118,14 +122,14 @@ I expected this code to execute the Parent task in the =Executor= and as the
 =MAX_POOL_SIZE= is =5=, I expected the Child task as well to be executed by the
 =Executor= with the following in the Console.
 
-#+BEGIN_SRC 
+#+BEGIN_SRC text
 [pool-1-thread-1] [ParentTask]
 [pool-1-thread-2] [ChildTask]
 #+END_SRC
 
 ** Actual Output
 
-#+BEGIN_SRC 
+#+BEGIN_SRC text
 [pool-1-thread-1] [ParentTask]
 ...Program Hangs...
 #+END_SRC

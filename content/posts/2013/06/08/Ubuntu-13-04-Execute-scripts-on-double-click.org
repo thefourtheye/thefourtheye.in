@@ -1,0 +1,24 @@
+---
+title: "Ubuntu 13.04 - Execute scripts on double click"
+description: "Fix for Ubuntu 13.04 not executing scripts on double-click. Shows how to change Behavior settings in Files to either Ask each time or Run executable text files directly."
+date: 2013-06-08T19:57:00+05:30
+tags:
+  - "Ubuntu"
+aliases:
+  - "/2013/06/08/Ubuntu-13-04-Execute-scripts-on-double-click/"
+  - "/2013/06/08/Ubuntu-13-04-Execute-scripts-on-double-click.html"
+  - "/2013/06/Ubuntu-13-04-Execute-scripts-on-double-click/"
+  - "/2013/06/Ubuntu-13-04-Execute-scripts-on-double-click.html"
+  - "/2013/06/08/ubuntu-13-04-execute-scripts-on-double-click/"
+  - "/2013/06/08/ubuntu-13-04-execute-scripts-on-double-click.html"
+  - "/2013/06/ubuntu-13-04-execute-scripts-on-double-click/"
+  - "/2013/06/ubuntu-13-04-execute-scripts-on-double-click.html"
+---
+
+After upgrading to Ubuntu 13.04, I was facing this problem. I was not able to execute any script file just by double clicking on it, even though it has execute permission. Then I figured out, how to fix this problem.\\
+\\
+I opened the file explorer =Files=. Pressed =Alt=+=F10= and selected =Preferences=. It showed something like this.\\
+\\
+[[http://i.stack.imgur.com/I74gD.png][[[http://i.stack.imgur.com/I74gD.png]​​]]]\\
+\\
+In the =Behavior= tab, I selected =Ask each time= and closed it. By default, it was in =View executable text files when they are opened=. Now whenever I double click on a shell script, it will ask me what to do. If you want to straight away execute the script, select the first option =Run executable text files when they are opened=.\\

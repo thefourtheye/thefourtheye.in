@@ -1,0 +1,673 @@
+---
+title: "MongoDB Aggregation Framework Basics Explained"
+description: "Introduction to MongoDB aggregation framework with SQL equivalents. Covers $match, $project, $group, $sort pipeline operators with examples comparing to SQL queries."
+date: 2013-04-28T16:45:00+05:30
+tags:
+  - "MongoDB"
+  - "Python"
+aliases:
+  - "/2013/04/28/mongodb-aggregation-framework-basics/"
+  - "/2013/04/28/mongodb-aggregation-framework-basics.html"
+  - "/2013/04/mongodb-aggregation-framework-basics/"
+  - "/2013/04/mongodb-aggregation-framework-basics.html"
+---
+
+This post assumes that, the reader has a very good understanding of SQL.\\
+\\
+To understand the MongoDB's aggregation framework, lets start with inserting the following data.\\
+
+#+BEGIN_SRC javascript
+db.Student.insert ({Student_Name:"Kalki",  Class: "2", Mark_Scored:100, Subject: ["Tamil", "English", "Maths"]})
+db.Student.insert ({Student_Name:"Matsya", Class: "1", Mark_Scored:10,  Subject: ["Tamil", "English"]})
+
+db.Student.insert ({Student_Name:"Krishna",Class: "1", Mark_Scored:50,  Subject: ["Tamil"]})
+db.Student.insert ({Student_Name:"Buddha", Class: "2", Mark_Scored:60,  Subject: ["Tamil"]})
+db.Student.insert ({Student_Name:"Rama",   Class: "2", Mark_Scored:80,  Subject: ["Tamil"]})
+
+db.Student.insert ({Student_Name:"Krishna",Class: "1", Mark_Scored:50,  Subject: ["English"]})
+db.Student.insert ({Student_Name:"Buddha", Class: "2", Mark_Scored:60,  Subject: ["English"]})
+db.Student.insert ({Student_Name:"Rama",   Class: "2", Mark_Scored:80,  Subject: ["English"]})
+
+db.Student.insert ({Student_Name:"Matsya", Class: "1", Mark_Scored:67,  Subject: ["Maths"]})
+db.Student.insert ({Student_Name:"Krishna",Class: "1", Mark_Scored:95,  Subject: ["Maths"]})
+db.Student.insert ({Student_Name:"Buddha", Class: "2", Mark_Scored:88,  Subject: ["Maths"]})
+db.Student.insert ({Student_Name:"Rama",   Class: "2", Mark_Scored:40,  Subject: ["Maths"]})
+#+END_SRC
+
+\\
+
+* Pipeline
+:PROPERTIES:
+:CUSTOM_ID: pipeline
+:END:
+The aggregation framework is based on pipeline concept, just like [[http://en.wikipedia.org/wiki/Pipeline_%28Unix%29][unix pipeline]]. There can be N number of operators. Output of first operator will be fed as input to the second operator. Output of second operator will be fed as input to the third operator and so on.
+
+\\
+
+* Pipeline Operators
+:PROPERTIES:
+:CUSTOM_ID: pipeline-operators
+:END:
+Following are the basic pipeline operators and let us make use of these operators over the sample data which we created. *We are not going to discuss about Map-Reduce in this post.*\\
+
+1. [[#match][$match]]
+2. [[#unwind][$unwind]]
+3. [[#group][$group]]
+4. [[#project][$project]]
+5. [[#skipandlimit][$skip]]
+6. [[#skipandlimit][$limit]]
+7. [[#sort][$sort]]
+
+** $match
+:PROPERTIES:
+:CUSTOM_ID: match
+:END:
+This is similar to MongoDB Collection's find method and SQL's WHERE clause. Basically this filters the data which is passed on to the next operator. There can be multiple $match operators in the pipeline.
+
+\\
+*Note:*The data what we pass to the aggregate function should be a list of Javascript objects (Python dictionaries). Each and every operator should be in a separate javascript object like shown in all the examples below.\\
+\\
+*Example:*We want to consider only the marks of the students who study in Class "2"\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+  {
+     "$match":
+     {
+        "Class":"2"
+     }
+  }
+  ])
+#+END_SRC
+
+and the result is\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5c"),
+			"Student_Name" : "Kalki",
+			"Class" : "2",
+			"Mark_Scored" : 100,
+			"Subject" : [
+				"Tamil",
+				"English",
+				"Maths"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5f"),
+			"Student_Name" : "Buddha",
+			"Class" : "2",
+			"Mark_Scored" : 60,
+			"Subject" : [
+				"Tamil"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa60"),
+			"Student_Name" : "Rama",
+			"Class" : "2",
+			"Mark_Scored" : 80,
+			"Subject" : [
+				"Tamil"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa62"),
+			"Student_Name" : "Buddha",
+			"Class" : "2",
+			"Mark_Scored" : 60,
+			"Subject" : [
+				"English"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa63"),
+			"Student_Name" : "Rama",
+			"Class" : "2",
+			"Mark_Scored" : 80,
+			"Subject" : [
+				"English"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa66"),
+			"Student_Name" : "Buddha",
+			"Class" : "2",
+			"Mark_Scored" : 88,
+			"Subject" : [
+				"Maths"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa67"),
+			"Student_Name" : "Rama",
+			"Class" : "2",
+			"Mark_Scored" : 40,
+			"Subject" : [
+				"Maths"
+			]
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+Let us say, we want to consider only the marks of the students who study in Class "2" and whose marks are more than or equal to 80\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+  {
+     "$match":
+     {
+        "Class":"2",
+        "Mark_Scored":
+        {
+           "$gte": 80
+        }
+     }
+  }
+  ])
+#+END_SRC
+
+Or we can use $match operator twice to achieve the same result\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+  {
+     "$match":
+     {
+        "Class":"2",
+     }
+  },
+  {
+     "$match":
+     {
+        "Mark_Scored":
+        {
+           "$gte": 80
+        }
+     }
+  }
+  ])
+#+END_SRC
+
+and the result would be\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5c"),
+			"Student_Name" : "Kalki",
+			"Class" : "2",
+			"Mark_Scored" : 100,
+			"Subject" : [
+				"Tamil",
+				"English",
+				"Maths"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa60"),
+			"Student_Name" : "Rama",
+			"Class" : "2",
+			"Mark_Scored" : 80,
+			"Subject" : [
+				"Tamil"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa63"),
+			"Student_Name" : "Rama",
+			"Class" : "2",
+			"Mark_Scored" : 80,
+			"Subject" : [
+				"English"
+			]
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa66"),
+			"Student_Name" : "Buddha",
+			"Class" : "2",
+			"Mark_Scored" : 88,
+			"Subject" : [
+				"Maths"
+			]
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+** $unwind
+:PROPERTIES:
+:CUSTOM_ID: unwind
+:END:
+This will be very useful when the data is stored as list. When the unwind operator is applied on a list data field, it will generate a new record for each and every element of the list data field on which unwind is applied. It basically flattens the data. Lets see an example to understand this better
+
+*Note:* The field name, on which unwind is applied, should be prefixed with $ (dollar sign)\\
+\\
+*Example:*Lets apply unwind over "Kalki"'s data.\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Student_Name": "Kalki",
+      }
+   }
+])
+#+END_SRC
+
+This generates the following output\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5c"),
+			"Student_Name" : "Kalki",
+			"Class" : "2",
+			"Mark_Scored" : 100,
+			"Subject" : [
+				"Tamil",
+				"English",
+				"Maths"
+			]
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+Whereas\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Student_Name": "Kalki",
+      }
+   },
+   {
+      "$unwind": "$Subject"
+   }
+])
+#+END_SRC
+
+will generate the following output\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5c"),
+			"Student_Name" : "Kalki",
+			"Class" : "2",
+			"Mark_Scored" : 100,
+			"Subject" : "Tamil"
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5c"),
+			"Student_Name" : "Kalki",
+			"Class" : "2",
+			"Mark_Scored" : 100,
+			"Subject" : "English"
+		},
+		{
+			"_id" : ObjectId("517cbb98eccb9ee3d000fa5c"),
+			"Student_Name" : "Kalki",
+			"Class" : "2",
+			"Mark_Scored" : 100,
+			"Subject" : "Maths"
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+** $group
+:PROPERTIES:
+:CUSTOM_ID: group
+:END:
+Now that we have flatten the data to be processed, lets try and group the data to process them. The group pipeline operator is similar to the SQL's GROUP BY clause. In SQL, we can't use GROUP BY unless we use any of the aggregation functions. The same way, we have to use an aggregation function in MongoDB as well. You can read more about the aggregation functions [[http://docs.mongodb.org/manual/reference/aggregation/#expressions][here]]. As most of them are like in SQL, I don't think much explanation would be needed.
+
+\\
+*Note:* The _id element in group operator is a must. We cannot change it to some other name. MongoDB identifies the grouping expression with the _id field only.\\
+\\
+*Example:* Lets try and get the sum of all the marks scored by each and every student, in Class "2"\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Class": "2"
+      }
+   },
+   {
+      "$unwind": "$Subject"
+   },
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Student_Name" : "$Student_Name"
+         },
+         "Total_Marks":
+         {
+            "$sum": "$Mark_Scored"
+         }
+      }
+   }
+])
+#+END_SRC
+
+If we look at this aggregation example, we have specified an _id element and Total_Marks element. The _id element tells MongoDB to group the documents based on Student_Name field. The Total_Marks uses an aggregation function [[http://docs.mongodb.org/manual/reference/aggregation/sum/#grp._S_sum][$sum]], which basically adds up all the marks and returns the sum. This will produce this Output\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"_id" : {
+				"Student_Name" : "Rama"
+			},
+			"Total_Marks" : 200
+		},
+		{
+			"_id" : {
+				"Student_Name" : "Buddha"
+			},
+			"Total_Marks" : 208
+		},
+		{
+			"_id" : {
+				"Student_Name" : "Kalki"
+			},
+			"Total_Marks" : 300
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+We can use the sum function to count the number of records match the grouped data. Instead of "$sum": "$Mark_Scored", "$sum": 1 will count the number of records. "$sum": 2 will add 2 for each and every grouped data.\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Class": "2"
+      }
+   },
+   {
+      "$unwind": "$Subject"
+   },
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Student_Name" : "$Student_Name"
+         },
+         "Total_Marks":
+         {
+            "$sum": 1
+         }
+      }
+   }
+])
+#+END_SRC
+
+This will produce this Output\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"_id" : {
+				"Student_Name" : "Rama"
+			},
+			"Total_Marks" : 3
+		},
+		{
+			"_id" : {
+				"Student_Name" : "Buddha"
+			},
+			"Total_Marks" : 3
+		},
+		{
+			"_id" : {
+				"Student_Name" : "Kalki"
+			},
+			"Total_Marks" : 3
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+This is because each and every student has marks for three subjects.\\
+
+** $project
+:PROPERTIES:
+:CUSTOM_ID: project
+:END:
+The project operator is similar to SELECT in SQL. We can use this to rename the field names and select/deselect the fields to be returned, out of the grouped fields. If we specify 0 for a field, it will NOT be sent in the pipeline to the next operator. We can even flatten the data using project as shown in the example below
+
+*Example:*\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Class": "2"
+      }
+   },
+   {
+      "$unwind": "$Subject"
+   },
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Student_Name" : "$Student_Name"
+         },
+         "Total_Marks":
+         {
+            "$sum": "$Mark_Scored"
+         }
+      }
+   },
+   {
+      "$project":
+      {
+         "_id":0,
+         "Name":  "$_id.Student_Name",
+         "Total": "$Total_Marks"
+      }
+   }
+])
+#+END_SRC
+
+will result in\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"Name" : "Rama",
+			"Total" : 200
+		},
+		{
+			"Name" : "Buddha",
+			"Total" : 208
+		},
+		{
+			"Name" : "Kalki",
+			"Total" : 300
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+Lets say we try to retrieve Subject field by specifying project like shown below. MongoDB will simply ignore the Subject field, since it is not used in the group operator's _id field.\\
+
+#+BEGIN_SRC json
+"$project":
+{
+   "_id":0,
+   "Subject":1,
+   "Name":  "$_id.Student_Name",
+   "Total": "$Total_Marks"
+}
+#+END_SRC
+
+** $sort
+:PROPERTIES:
+:CUSTOM_ID: sort
+:END:
+This is similar to SQL's ORDER BY clause. To sort a particular field in descending order specify -1 and specify 1 if that field has to be sorted in ascending order. I don't think this section needs more explanation. Lets straight away look at an example\\
+*Example:*\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Class": "2"
+      }
+   },
+   {
+      "$unwind": "$Subject"
+   },
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Student_Name" : "$Student_Name"
+         },
+         "Total_Marks":
+         {
+            "$sum": "$Mark_Scored"
+         }
+      }
+   },
+   {
+      "$project":
+      {
+         "_id":0,
+         "Name":  "$_id.Student_Name",
+         "Total": "$Total_Marks"
+      }
+   },
+   {
+      "$sort":
+      {
+         "Total":-1,
+         "Name":1
+      }
+   }
+])
+#+END_SRC
+
+Will Sort the data based on Marks in descending Order first and then by Name in Ascending Order.\\
+
+#+BEGIN_SRC json
+{
+	"result" : [
+		{
+			"Name" : "Kalki",
+			"Total" : 300
+		},
+		{
+			"Name" : "Buddha",
+			"Total" : 208
+		},
+		{
+			"Name" : "Rama",
+			"Total" : 200
+		}
+	],
+	"ok" : 1
+}
+#+END_SRC
+
+** $limit and $skip
+:PROPERTIES:
+:CUSTOM_ID: skipandlimit
+:END:
+These two operators can be used to limit the number of documents being returned. They will be more useful when we need pagination support.
+
+*Example:*\\
+
+#+BEGIN_SRC javascript
+db.Student.aggregate ([
+   {
+      "$match":
+      {
+         "Class": "2"
+      }
+   },
+   {
+      "$unwind": "$Subject"
+   },
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Student_Name" : "$Student_Name"
+         },
+         "Total_Marks":
+         {
+            "$sum": "$Mark_Scored"
+         }
+      }
+   },
+   {
+      "$project":
+      {
+         "_id":0,
+         "Name":  "$_id.Student_Name",
+         "Total": "$Total_Marks"
+      }
+   },
+   {
+      "$sort":
+      {
+         "Total":-1,
+         "Name":1
+      }
+   },
+   {
+      "$limit":2,
+   },
+   {
+      "$skip":1,
+   }
+])
+#+END_SRC
+
+will result in\\
+
+#+BEGIN_SRC json
+{ "result" : [ { "Name" : "Buddha", "Total" : 208 } ], "ok" : 1 }
+#+END_SRC
+
+Because the limit operator receives 3 documents from the sort operator and allows only the first two documents to pass through it, thereby dropping Rama's record. The skip operator skips one document (that means the first document (Kalki's document) is dropped) and allows only the Buddha's document to pass through.\\
+\\
+All the examples shown here are readily usable with pyMongo (Just replace db.Student with your Collection object name)\\
+\\
+\\

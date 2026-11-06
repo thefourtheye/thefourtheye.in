@@ -1,0 +1,84 @@
+---
+title: "Project Euler - Problem 18, Problem 67 - Maximum path sum"
+description: "Project Euler problems 18 and 67 - Maximum path sum. Classic DP problem: find the maximum sum from top to bottom of a triangular number pyramid by propagating maximums upward."
+date: 2013-06-12T19:32:00+05:30
+tags:
+  - "Dynamic Programming"
+  - "Project Euler"
+  - "Sport Programming"
+aliases:
+  - "/2013/06/12/project-euler-problem-18-problem-67/"
+  - "/2013/06/12/project-euler-problem-18-problem-67.html"
+  - "/2013/06/project-euler-problem-18-problem-67/"
+  - "/2013/06/project-euler-problem-18-problem-67.html"
+---
+
+Its been quite sometime since I did some coding. Last Sunday, one of the best friends of mine (Clement Lloyd) asked me if I can solve [[http://projecteuler.net/problem=18][Project Euler's Problem 18]]. The problem name is Maximum path sum. Finally I got some time today and it is a simple Dynamic Programming Problem. The basic idea is to, keep on adding two adjacent elements of each row with the corresponding element in the previous row and keep the maximum of them. For example,\\
+\\
+
+#+BEGIN_EXAMPLE
+ 8
+1 2
+#+END_EXAMPLE
+
+\\
+The maximum of 8+1 and 8+2 would be 10 and 10 would take 8's place. So we keep on doing this till we reach the top. For the sample input\\
+\\
+
+#+BEGIN_EXAMPLE
+3
+  7 4
+ 2 4 6
+8 5 9 3
+#+END_EXAMPLE
+
+\\
+After first Iteration,\\
+\\
+
+#+BEGIN_EXAMPLE
+3
+   7  4
+ 10 13 15
+#+END_EXAMPLE
+
+\\
+After second Iteration,\\
+\\
+
+#+BEGIN_EXAMPLE
+3
+  20 19
+#+END_EXAMPLE
+
+\\
+After third Iteration,\\
+\\
+
+#+BEGIN_EXAMPLE
+23
+#+END_EXAMPLE
+
+\\
+Here is the solution which I used\\
+\\
+
+#+BEGIN_SRC python
+import sys
+sys.stdin  = open ("Input.txt")
+sys.stdout = open ("Output.txt", "w")
+Array = []
+for line in sys.stdin: Array.append (map (int, line.split()))
+Array.reverse()
+temp_array = [0] * (len(Array) + 1)
+for Row in Array:
+ for i in xrange (len(Row)):
+  temp_array[i] = Row[i] + max (temp_array[i], temp_array[i + 1])
+print max (temp_array)
+#+END_SRC
+
+\\
+This solution will solve [[http://projecteuler.net/problem=67][Project Euler's Problem 67]] as well.\\
+\\
+\\
+\\

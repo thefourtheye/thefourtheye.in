@@ -1,0 +1,73 @@
+---
+title: "select2 JQuery dynamic JSON data with tags"
+description: "Implements Select2 jQuery plugin with dynamic JSON data loading via AJAX and tag support. Shows configuration options for multiple selection, minimum input length, and custom formatting."
+date: 2013-04-04T09:34:00+05:30
+tags:
+  - "Select2"
+  - "JSON"
+  - "jQuery"
+aliases:
+  - "/2013/04/04/select2-dynamic-json-data-with-tags/"
+  - "/2013/04/04/select2-dynamic-json-data-with-tags.html"
+  - "/2013/04/select2-dynamic-json-data-with-tags/"
+  - "/2013/04/select2-dynamic-json-data-with-tags.html"
+---
+
+#+BEGIN_EXPORT html
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp"></script>
+#+END_EXPORT
+
+#+BEGIN_SRC js
+          jQuery.noConflict();
+          function formatListOptionSelection (Option, Container)
+          {
+             return Option;
+          }
+          function formatListOption (Option, Container, Query)
+          {
+             return "<div id='" + Option + "'>" + Option + "</div>";
+          }
+          jQuery(document).ready(function() {
+             jQuery("#Data").select2 ({
+                multiple: true,
+                minimumInputLength: 5,
+                maximumSelectionSize: 3,
+                id: function (e) {return e;},
+                ajax: {
+                   url: 'fetch.json',
+                   // json will be used if there is no Same Origin Policy violation, otherwise JSONP shall be used
+                   dataType: 'json',
+                   data: function (term, page) {
+                      return {
+                         searchkey: term,
+                         field: 'Data'
+                      };
+                   },
+
+                   // This method will be used when the data is returned from the server
+                   results: function (data, page) {
+                      return {results: data.Datas};
+                   },
+                },
+
+                // This method will be used when you fetch result from server and add it to the element
+                formatResult: formatListOption,
+
+                // This method will be used when you select one of the options
+                formatSelection: formatListOptionSelection,
+
+                // This method will be used when you set the value attribute of the element
+                initSelection: function(element, callback) {
+                   var Datas = jQuery(element).val();
+                   Data = []
+                   jQuery(Datas.split(",")).each(function () {
+                      if (this != "") Data.push (this);
+                   });
+                   callback (Data);
+                },
+             });
+          });
+
+
+         <input class="span12" id="Data" name="Data" type="hidden" value="<Value from POST back>" />
+#+END_SRC

@@ -1,0 +1,55 @@
+---
+title: "SPOJ - ACODE - AlphaCode"
+description: "SPOJ ACODE - AlphaCode. Counts possible decodings of a numeric string where 1=A, 2=B, ..., 26=Z using dynamic programming. Handles single and double digit interpretations."
+date: 2013-04-23T21:34:00+05:30
+tags:
+  - "SPOJ"
+  - "Dynamic Programming"
+  - "Sport Programming"
+aliases:
+  - "/2013/04/23/spoj-acode-alphacode/"
+  - "/2013/04/23/spoj-acode-alphacode.html"
+  - "/2013/04/spoj-acode-alphacode/"
+  - "/2013/04/spoj-acode-alphacode.html"
+---
+
+#+begin_quote
+Problem Description - [[http://www.spoj.com/problems/ACODE/]]\\
+\\
+Approach :\\
+\\
+1) Initialize an Array of Size N with 0 and element 0 as 1\\
+2) Loop through all the elements\\
+3) If it is a valid single digit number, Copy the previous element's value to the current element (DP[i] = DP[i-1])\\
+4) If it is a valid two digit number, Add the previous to previous element's value to the current element (DP[i] += DP[i-2])\\
+\\
+In one line : DP[i] = DP[i-1] {if valid single digit number} + DP[i-2] {if current and previous elements make a valid two digit number}\\
+\\
+Solution:\\
+#+end_quote
+
+#+BEGIN_SRC c
+# include <cstdio>
+# include <cstring>
+char Input[5001] = "";
+unsigned long long DP[5001];
+int main()
+{
+ freopen ("Input.txt", "r", stdin);
+ freopen ("Scratch.txt", "w", stdout);
+ scanf ("%s", Input);
+ while (strcmp(Input, "0"))
+ {
+  int Len = strlen (Input), Index = 1;
+  memset (DP, 0, sizeof DP);
+  DP[0] = 1;
+  while (Index  9) DP[Index] += DP[Index-2 < 0?0:Index-2];
+   //printf ("%d\t%llu\n",Index, DP[Index]);
+   Index++;
+  }
+  //printf ("%llu\t%s\n", DP[Len-1], Input);
+  printf ("%llu\n", DP[Len-1]);
+  scanf ("%s", Input);
+ }
+}
+#+END_SRC

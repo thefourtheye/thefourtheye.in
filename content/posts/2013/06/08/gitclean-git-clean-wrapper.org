@@ -1,0 +1,129 @@
+---
+title: "gitclean - a git clean wrapper"
+description: "gitclean is a safety wrapper around git clean that shows what files will be deleted and asks for confirmation before removing untracked files."
+date: 2013-06-08T18:40:00+05:30
+tags:
+  - "git"
+aliases:
+  - "/2013/06/08/gitclean-git-clean-wrapper/"
+  - "/2013/06/08/gitclean-git-clean-wrapper.html"
+  - "/2013/06/gitclean-git-clean-wrapper/"
+  - "/2013/06/gitclean-git-clean-wrapper.html"
+---
+
+Last week, I had to make some changes to the code. I was keep on making changes but forgot to add them to git and to take backup. When I am almost done I wanted to commit and before committing I checked the changed files with this.\\
+\\
+=git status=\\
+\\
+it listed all the files which have got changed and few other temporary files and compiled binaries, which I don't want to keep in the repository. So I did\\
+\\
+=git clean -qfxd=\\
+\\
+That's it. This cleared everything, including my newly added untracked files and all my hardwork went in vain. Then I read about =git clean= [[https://www.kernel.org/pub/software/scm/git/docs/git-clean.html][here]] and got to know what I could have done to avoid this problem. And then I was thinking, if there is a script which would remind me that, the following files will also be removed and only when I say `yes` it would go ahead and clean the repository. So I made this [[https://github.com/thefourtheye/gitclean][gitclean]] script. This would collect the status of the files with =git status --porcelain= and then compare it with the list of extensions specified in the config file. If they match, it would report to the user and ask his consent before beginning to clean.\\
+\\
+** Github
+:PROPERTIES:
+:CUSTOM_ID: github
+:END:
+\\
+Github Repository : [[https://github.com/thefourtheye/gitclean]].\\
+\\
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+\\
+To install this script, please follow these steps\\
+\\
+
+#+BEGIN_SRC shell
+wget https://raw.github.com/thefourtheye/gitclean/master/gitclean
+chmod 544 gitclean
+./gitclean install
+#+END_SRC
+
+\\
+
+1. The first step will download the script from github
+2. The second step changes the permissions of the file to 544
+3. The third step installs the script. Basically, it copies itself to the user's home directory and creates the gitclean alias in the =$HOME/.bashrc= file\\
+
+** Configuration
+:PROPERTIES:
+:CUSTOM_ID: configuration
+:END:
+Users can specify the extensions, gitclean has to report in the =$HOME/.gitclean_extenstions= file. By default, gitclean will report the extension-less files and directories as well. But, it does not report the empty directory. My =.gitclean_extenstions= file has the following items.
+
+#+BEGIN_SRC text
+cpp
+js
+#+END_SRC
+
+** Sample Runs
+:PROPERTIES:
+:CUSTOM_ID: sample-runs
+:END:
+1. With no files changed
+
+#+BEGIN_SRC shell
+~/gitclean$ gitclean
+
+Interesting Extensions found in [/home/thefourtheye/.gitclean_extensions] are as follows
+[cpp]
+[js]
+
+0 interesting files found, in total 0 files. Cleaning was not done. Exiting...
+~/gitclean$
+#+END_SRC
+
+2. With one interesting file [Test.js]
+
+#+BEGIN_SRC shell
+~/gitclean$ gitclean
+
+Interesting Extensions found in [/home/thefourtheye/.gitclean_extensions] are as follows
+[cpp]
+[js]
+
+Test.js
+
+1 interesting files found, in total 1 files. Are you sure want to clean? [y/Y - Yes, Any other Key - No] : n
+Cleaning was not done. Exiting...
+~/gitclean$
+#+END_SRC
+
+3. With one interesting file [Test.js] and a non-empty directory
+
+#+BEGIN_SRC shell
+~/gitclean$ gitclean
+
+Interesting Extensions found in [/home/thefourtheye/.gitclean_extensions] are as follows
+[cpp]
+[js]
+
+Test.js
+Test/
+
+2 interesting files found, in total 2 files. Are you sure want to clean? [y/Y - Yes, Any other Key - No] : y
+Cleaning...
+
+~/gitclean$
+#+END_SRC
+
+4. With one interesting file [Test.js] and a non-empty directory and a non-interesting file [Test.txt]
+
+#+BEGIN_SRC shell
+~/gitclean$ gitclean
+
+Interesting Extensions found in [/home/thefourtheye/.gitclean_extensions] are as follows
+[cpp]
+[js]
+
+Test.js
+Test/
+
+2 interesting files found, in total 3 files. Are you sure want to clean? [y/Y - Yes, Any other Key - No] : y
+Cleaning...
+
+~/gitclean$
+#+END_SRC

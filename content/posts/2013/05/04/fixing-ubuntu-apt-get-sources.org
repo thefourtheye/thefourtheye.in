@@ -1,0 +1,52 @@
+---
+title: "Fixing Ubuntu apt-get sources"
+description: "Bash script to fix Ubuntu apt-get sources.list by replacing it with mirror protocol URLs for faster and more reliable downloads. Works with any Ubuntu release."
+date: 2013-05-04T20:41:00+05:30
+tags:
+  - "Ubuntu"
+aliases:
+  - "/2013/05/04/fixing-ubuntu-apt-get-sources/"
+  - "/2013/05/04/fixing-ubuntu-apt-get-sources.html"
+  - "/2013/05/fixing-ubuntu-apt-get-sources/"
+  - "/2013/05/fixing-ubuntu-apt-get-sources.html"
+---
+
+This script makes use of the mirror protocol.\\
+
+#+BEGIN_SRC shell
+#!/bin/bash
+
+UbuntuCodeName=`lsb_release -c | cut -f 2`
+if [ ! -f /etc/apt/sources.list.Original ];
+then
+    mv /etc/apt/sources.list /etc/apt/sources.list.Original
+ echo "deb     mirror://mirrors.ubuntu.com/mirrors.txt $UbuntuCodeName main restricted universe multiverse
+deb-src mirror://mirrors.ubuntu.com/mirrors.txt $UbuntuCodeName main restricted universe multiverse
+
+deb     mirror://mirrors.ubuntu.com/mirrors.txt $UbuntuCodeName-updates main restricted universe multiverse
+deb-src mirror://mirrors.ubuntu.com/mirrors.txt $UbuntuCodeName-updates main restricted universe multiverse
+
+deb     mirror://mirrors.ubuntu.com/mirrors.txt $UbuntuCodeName-backports main restricted universe multiverse
+deb-src mirror://mirrors.ubuntu.com/mirrors.txt $UbuntuCodeName-backports main restricted universe multiverse
+
+deb     http://security.ubuntu.com/ubuntu $UbuntuCodeName-security main restricted universe multiverse
+deb-src http://security.ubuntu.com/ubuntu $UbuntuCodeName-security main restricted universe multiverse
+
+deb     http://archive.canonical.com/ubuntu $UbuntuCodeName partner
+deb-src http://archive.canonical.com/ubuntu $UbuntuCodeName partner
+
+deb     http://extras.ubuntu.com/ubuntu $UbuntuCodeName main
+deb-src http://extras.ubuntu.com/ubuntu $UbuntuCodeName main" >> /etc/apt/sources.list
+else
+ echo "This script has been run already. Exiting"
+fi
+#+END_SRC
+
+\\
+Alternatively, you can run the following commands to update the sources automatically\\
+
+#+BEGIN_SRC shell
+wget -O UpdateAptSources.sh http://ideone.com/plain/UgsBel
+chmod 555 UpdateAptSources.sh
+sudo ./UpdateAptSources.sh
+#+END_SRC

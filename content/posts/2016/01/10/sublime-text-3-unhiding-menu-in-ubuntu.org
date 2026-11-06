@@ -1,0 +1,31 @@
+---
+title: "Sublime Text 3 unhiding menu in Ubuntu - simpler solution"
+description: "Simpler method to toggle Sublime Text 3 menu visibility using keyboard shortcut (Ctrl+Shift+M) instead of editing config files."
+date: 2016-01-10T20:44:00+05:30
+tags:
+  - "Ubuntu"
+  - "Sublime"
+aliases:
+  - "/2016/01/10/sublime-text-3-unhiding-menu-in-ubuntu/"
+  - "/2016/01/10/sublime-text-3-unhiding-menu-in-ubuntu.html"
+  - "/2016/01/sublime-text-3-unhiding-menu-in-ubuntu/"
+  - "/2016/01/sublime-text-3-unhiding-menu-in-ubuntu.html"
+---
+
+The method which I mentioned in this [[http://www.thefourtheye.in/2014/01/un-hiding-menu-bar-in-sublime-text-3.html][blog post of mine]], solves the problem, but then you have to\\
+1. Close the Sublime Text\\
+2. Fire up a terminal\\
+3. Execute a command or two\\
+4. Open Sublime Text again\\
+
+Quite a lot of steps to do. But then I found a simpler solution today and it works like a charm for me. The solution is to use "Keyboard Shortcuts" :-) Let me explain in detail.
+Click =Preferences= -> =Key Bindings - User=\\
+In the window that opens, you need to add a new keyboard shortcut for the command "toggle_menu". For example, this is how my shortcuts looks like\\
+
+#+BEGIN_SRC json
+[{"keys": ["ctrl+\\"], "command": "toggle_side_bar"},
+ {"keys": ["ctrl+shift+m"], "command": "toggle_menu"}]
+#+END_SRC
+
+Save the file and start doing your happy dance.\\
+Now, you can simply press the keyboard shortcut whatever you choose to assign to toggle menu :-)

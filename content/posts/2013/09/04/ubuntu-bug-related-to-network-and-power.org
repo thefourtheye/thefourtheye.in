@@ -1,0 +1,23 @@
+---
+title: "Ubuntu bug related to network and power"
+description: "Fix for Ubuntu network connectivity issue when on battery power. ETH1 interface doesn't work on battery but works on AC power. Simple one-line fix via sysfs."
+date: 2013-09-04T18:32:00+05:30
+tags:
+  - "Ubuntu"
+aliases:
+  - "/2013/09/04/ubuntu-bug-related-to-network-and-power/"
+  - "/2013/09/04/ubuntu-bug-related-to-network-and-power.html"
+  - "/2013/09/ubuntu-bug-related-to-network-and-power/"
+  - "/2013/09/ubuntu-bug-related-to-network-and-power.html"
+---
+
+Last week, I faced this weird problem. When my laptop is not connected to a power source (not on battery), I could not connect to LAN network with my LAN cable, but Wi-Fi worked fine. I struggled a lot for a week and then I found a solution in the internet.\\
+
+All you have to do is to execute this one liner in your terminal.\\
+
+#+BEGIN_SRC shell
+echo on > /sys/class/net/eth1/device/power/control
+#+END_SRC
+
+Here =eth1= corresponds to my second ethernet interface. It might vary from machine to machine. And if the directories =eth=, =device= and =power= dont exist, you might have to manually create them.\\
+\\

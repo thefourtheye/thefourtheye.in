@@ -1,0 +1,53 @@
+---
+title: "Python equivalent of C's freopen"
+description: "Shows how to redirect stdin and stdout in Python to work with files, similar to C's freopen(). Enables automating interactive programs in competitive programming."
+date: 2013-05-04T07:40:00+05:30
+tags:
+  - "Python"
+  - "Sport Programming"
+aliases:
+  - "/2013/05/04/python-equivalent-of-cs-freopen/"
+  - "/2013/05/04/python-equivalent-of-cs-freopen.html"
+  - "/2013/05/python-equivalent-of-cs-freopen/"
+  - "/2013/05/python-equivalent-of-cs-freopen.html"
+---
+
+All I wanted to do is, to make python treat a file as stdin and another file as stdout. This is possible in C and C++ like this\\
+\\
+
+#+BEGIN_SRC c
+freopen ("Input.txt", "r", stdin);
+freopen ("Output.txt","w", stdout);
+#+END_SRC
+
+\\
+Including these two lines at the beginning of main function, makes sure that all the read calls read from Input.txt and all the write calls write to Output.txt. We don't have to use fprintf and fscanf to read and write to a file anymore. printf and scanf itself are enough. This would be very useful, if we want to automate an interactive program. Almost all of Sport Programming solutions have these two lines. Because, I don't like to type the input each and every time. So I store it once in a file and then write the results to another file.\\
+\\
+Now, I wanted to do the same thing in Python, for Google Code Jam 2013. So started looking for way and I got [[http://stackoverflow.com/questions/1744989/read-from-file-or-stdin/1745035?noredirect=1#comment23449563_1745035][this]]. I saw Greg Hewgill's answer which is like this\\
+\\
+
+#+BEGIN_SRC python
+import sys
+# parse command line
+if file_name_given:
+    inf = open(file_name_given)
+else:
+    inf = sys.stdin
+#+END_SRC
+
+\\
+This assigns stdin or a file to the variable inf. But then, I wanted to use standard library functions of Python like raw_input and input as well. So, I managed to do this\\
+\\
+
+#+BEGIN_SRC python
+import sys
+
+sys.stdin  = open("Input.txt")
+sys.stdout = open("Output.txt")
+#+END_SRC
+
+\\
+That's it. I just replaced the stdin and stdout with two different files. Now I am even able to use raw_input and input functions, without any trouble. Hope this helps... :)\\
+\\
+\\
+\\

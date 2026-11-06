@@ -1,0 +1,84 @@
+---
+title: "Python's venv problem with ensurepip in Ubuntu"
+description: "Fix for Python 3.4 venv issues on Ubuntu 14.04. Workaround involves creating venv without pip first, then manually installing pip using get-pip.py bootstrap script."
+date: 2014-12-30T14:52:00+05:30
+tags:
+  - "Ubuntu"
+  - "Python"
+aliases:
+  - "/2014/12/30/Python-venv-problem-with-ensurepip-in-Ubuntu/"
+  - "/2014/12/30/Python-venv-problem-with-ensurepip-in-Ubuntu.html"
+  - "/2014/12/Python-venv-problem-with-ensurepip-in-Ubuntu/"
+  - "/2014/12/Python-venv-problem-with-ensurepip-in-Ubuntu.html"
+  - "/2014/12/30/python-venv-problem-with-ensurepip-in-ubuntu/"
+  - "/2014/12/30/python-venv-problem-with-ensurepip-in-ubuntu.html"
+  - "/2014/12/python-venv-problem-with-ensurepip-in-ubuntu/"
+  - "/2014/12/python-venv-problem-with-ensurepip-in-ubuntu.html"
+---
+
+Ubuntu 14.04's Python 3.4 installation has a problem with =ensurepip= module, as described in [[https://bugs.launchpad.net/ubuntu/+source/python3.4/+bug/1290847][this bug]]. So if you follow the steps mentioned in the [[https://docs.python.org/3/library/venv.html#creating-virtual-environments][official documentation]], you would see an error message like this
+
+#+BEGIN_SRC shell
+➜  Python  python3 -m venv py3.4venv
+Error: Command '['/home/thefourtheye//py34venv/bin/python3', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1
+#+END_SRC
+
+To resolve this problem, first install the =venv=, without =pip=, like this\\
+
+#+BEGIN_SRC shell
+python3 -m venv py3.4venv --without-pip
+#+END_SRC
+
+And then if you install =pip=, like this, it will still fail
+
+#+BEGIN_SRC python
+(py3.4venv) ➜  py3.4venv  python -m ensurepip --upgrade
+/home/thefourtheye/Python/py3.4venv/bin/python: No module named ensurepip
+(py3.4venv) ➜  py3.4venv  python
+Python 3.4.0 (default, Apr 11 2014, 13:05:11)
+[GCC 4.8.2] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+...
+#+END_SRC
+
+So, you need to install, =pip= separately, like mentioned in the [[http://pip.readthedocs.org/en/latest/installing.html#install-pip][pip's official documentation]]. So, the actual list of steps go like this\\
+
+#+BEGIN_SRC shell
+➜  Python  python3 -m venv py3.4venv --without-pip
+➜  Python  cd py3.4venv
+➜  py3.4venv  source bin/activate
+(py3.4venv) ➜  py3.4venv  wget https://bootstrap.pypa.io/get-pip.py
+--2014-12-30 14:35:34--  https://bootstrap.pypa.io/get-pip.py
+Resolving bootstrap.pypa.io (bootstrap.pypa.io)... 103.245.222.175
+Connecting to bootstrap.pypa.io (bootstrap.pypa.io)|103.245.222.175|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1581355 (1.5M) [text/x-python]
+Saving to: ‘get-pip.py’
+
+100%[=====================================================================================================================>] 15,81,355    129KB/s   in 8.9s
+
+2014-12-30 14:35:43 (173 KB/s) - ‘get-pip.py’ saved [1581355/1581355]
+
+(py3.4venv) ➜  py3.4venv  python get-pip.py
+Collecting pip
+  Downloading pip-6.0.3-py2.py3-none-any.whl (1.3MB)
+    100% |################################| 1.3MB 139kB/s
+Collecting setuptools
+  Downloading setuptools-9.1-py2.py3-none-any.whl (552kB)
+    100% |################################| 552kB 180kB/s
+Installing collected packages: setuptools, pip
+
+
+Successfully installed pip-6.0.3 setuptools-9.1
+(py3.4venv) ➜  py3.4venv  deactivate
+➜  py3.4venv  source bin/activate
+(py3.4venv) ➜  py3.4venv  pip install django
+Collecting django
+  Using cached Django-1.7.1-py2.py3-none-any.whl
+Installing collected packages: django
+
+Successfully installed django-1.7.1
+(py3.4venv) ➜  py3.4venv  which pip
+/home/thefourtheye/Python/py3.4venv/bin/pip
+(py3.4venv) ➜  py3.4venv
+#+END_SRC

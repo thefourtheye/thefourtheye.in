@@ -1,0 +1,49 @@
+---
+title: "Installing the thefourtheyeEditor - topcoder plugin"
+description: "Installation guide for thefourtheyeEditor, a lightweight TopCoder Arena plugin that enables external editor integration and stores solutions as local files organized by SRM."
+date: 2013-09-07T13:38:00+05:30
+tags:
+  - "Topcoder"
+aliases:
+  - "/2013/09/07/installing-thefourtheyeeditor/"
+  - "/2013/09/07/installing-thefourtheyeeditor.html"
+  - "/2013/09/installing-thefourtheyeeditor/"
+  - "/2013/09/installing-thefourtheyeeditor.html"
+---
+
+thefourtheyeEditor is a very lightweight plugin for Topcoder Arena to participate in Single Round Matches, which can build testcases and lets the users to store the solutions as local files, so that any editor or IDE can be used to edit them. It also maintains the solutions in the directories named as the SRM's display name.
+
+** Features
+:PROPERTIES:
+:CUSTOM_ID: features
+:END:
+1. Very lightweight - Only one jar file. It doesn't depend on any other external jar files.
+2. Organized solutions storage - Solutions will be stored as per the SRM names
+3. File based configuration - Configurations are done in contestapplet.conf file. No need to use UI.
+
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+1. Download thefourtheyeEditor plugin (thefourtheyeEditor.jar) from [[https://github.com/thefourtheye/thefourtheyeEditor/releases/download/latest/thefourtheyeEditor.jar]]
+2. Open topcoder contest applet and login with your username and password\\
+   \\
+
+   [[http://3.bp.blogspot.com/-pWmhTKJgMuU/UirZL3XombI/AAAAAAAABaQ/ElKofTOUZLo/s1600/topcoder+Login.png][[[http://3.bp.blogspot.com/-pWmhTKJgMuU/UirZL3XombI/AAAAAAAABaQ/ElKofTOUZLo/s1600/topcoder+Login.png]​​]]]
+
+3. Select =Editor= from the =Options= menu. You 'll see something like this\\
+   \\
+
+   [[http://4.bp.blogspot.com/-i-I4SZM6w0Y/UiraJxyoHjI/AAAAAAAABaY/rsfdcOmIVFc/s1600/topcoder+Editor+Preferences+Empty.png][[[http://4.bp.blogspot.com/-i-I4SZM6w0Y/UiraJxyoHjI/AAAAAAAABaY/rsfdcOmIVFc/s1600/topcoder+Editor+Preferences+Empty.png]​​]]]
+
+4. Click on =Add= and you 'll get a window like this. Fill in the details as you see in this picture. Actually you can give any name in the =Name=field and in =ClassPath= field, you have to locate the =thefourtheyeEditor.jar= file using Browse button. =EntryPoint= must be exactly the same as =thefourtheyeEditor.Main=.\\
+   \\
+
+   [[http://1.bp.blogspot.com/-fYASUa_iIWo/Uiravmk9dJI/AAAAAAAABag/RhTfUoZX-1w/s1600/topcoder+plugin+Information.png][[[http://1.bp.blogspot.com/-fYASUa_iIWo/Uiravmk9dJI/AAAAAAAABag/RhTfUoZX-1w/s1600/topcoder+plugin+Information.png]​​]]]
+
+5. Once these steps are done, the Editor preferences page will look like this\\
+   \\
+
+   [[http://2.bp.blogspot.com/-NeWwv8YD2WE/Uird2isJrGI/AAAAAAAABas/tLVrupAZrj8/s1600/topcoder+After+plugin+installation.png][[[http://2.bp.blogspot.com/-NeWwv8YD2WE/Uird2isJrGI/AAAAAAAABas/tLVrupAZrj8/s1600/topcoder+After+plugin+installation.png]​​]]]
+
+6. Click on Save button and close that window. That's it. Installation is complete :)

@@ -1,0 +1,35 @@
+---
+title: "Compiling .NET code in Console mode and Form mode with Mono C# Compiler"
+description: "Shows how to compile .NET C# code using Mono compiler in both console and Windows Forms modes. Covers basic mcs usage with -target:winexe and required DLL references for GUI applications."
+date: 2012-10-07T07:49:00+05:30
+tags:
+  - "Mono"
+aliases:
+  - "/2012/10/07/compiling-net-code-in-console-mode-and/"
+  - "/2012/10/07/compiling-net-code-in-console-mode-and.html"
+  - "/2012/10/compiling-net-code-in-console-mode-and/"
+  - "/2012/10/compiling-net-code-in-console-mode-and.html"
+---
+
+Compiling .NET code with [[http://en.wikipedia.org/wiki/Mono_(software)][Mono]] compiler is almost similar to compile with g++/gcc. The basic steps are as follows.\\
+\\
+1) Download and install the Mono for your platform from [[http://www.go-mono.com/mono-downloads/download.html]]\\
+2) Then write the code (we are going to see how to use c# compiler) with your favorite editor or IDE.\\
+3) Now to compile the code, we simply need to execute a file called mcs under the <installed location of mono>/bin, like this\\
+\\
+
+mcs <filename>.cs -out:<filename>.exe
+
+\\
+4) This will compile .cs file specified and produces the executable <filename>.exe\\
+\\
+But this compilation would produce only console application. That is whenever you execute the application, a terminal or a command window will be opened automatically. We may need to specify one or two options to ask the compiler to compile in forms mode.\\
+\\
+
+mcs <filename>.cs -out:<filename>.exe -target:winexe -r:System.Windows.Forms.dll -r:System.Drawing.dll
+
+\\
+
+The additional options used in this case are, -target and -r. -target specifies compiler that it has to generate a winexe type of application rather than console. -r option refers to the references. System.Windows.Forms.dll and System.Drawing.dll are the most common references needed when we start building applications with GUI support.\\
+\\
+*NOTE*: We can even build GUI applications in console mode, but the console/terminal window will show up and will not be closed until the application is running.

@@ -1,0 +1,210 @@
+---
+title: "Deploying web.py application in Apache with mod_wsgi"
+description: "Comprehensive guide to deploy web.py applications on Apache using mod_wsgi. Covers installing Apache, Python with shared libraries, mod_wsgi configuration, and common pitfalls."
+date: 2013-03-28T21:48:00+05:30
+tags:
+  - "Apache"
+  - "Python"
+  - "web.py"
+aliases:
+  - "/2013/03/28/deploying-webpy-application-in-apache/"
+  - "/2013/03/28/deploying-webpy-application-in-apache.html"
+  - "/2013/03/deploying-webpy-application-in-apache/"
+  - "/2013/03/deploying-webpy-application-in-apache.html"
+---
+
+Today, after a lot of struggle, I managed to deploy my web.py application on Apache with mod_wsgi module. There is no step at which I didn't face any problem. It took me about 8 hours to figure things out and get things working. Lets see, one by one. This post assumes that the reader knows the basics of installing a software in linux.\\
+\\
+
+*Try all these at your own risk, if something breaks I am not responsible.*
+
+\\
+\\
+*1) Installing Apache*\\
+\\
+This was pretty simple, I just had to follow the steps mentioned here [[http://httpd.apache.org/docs/current/install.html]]. Including the apache's bin directory in PATH variable would be good.\\
+\\
+*2) Installing Python*\\
+\\
+This is also pretty straight-forward. Download [[http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz]] and extract it. Just do configure, make and make install. Only thing is, configure with shared libraries enabled, like this\\
+\\
+
+* ./configure --enable-shared*
+
+\\
+
+Because the mod_wsgi module which we install later is dependent on the python's shared binary objects. Once the installation is completed, do not forget to include the python's lib directory in the LD_LIBRARY_PATH variable and python's bin directory in PATH variable. I would suggest including them in the login/profile script.
+
+\\
+
+*3) Installing mod_wsgi*
+
+\\
+
+WSGI stands for Web Server Gateway Interface. web.py provides the libraries necessary for this. People say, this makes life easier (atleast not for me :( ). Installation follows the same configure, make and make install drill. Download it from [[http://code.google.com/p/modwsgi/]] and extract. (Make sure that LD_LIBRARY_PATH has the python's lib directory as well).
+
+\\
+
+Once the installation finishes, find the mod_wsgi.so file using "find . -name mod_wsgi.so" (execute this from the directory in which compilation was done) and then copy it to <Apache installation directory>/modules/ directory.
+
+\\
+
+*4) Configuring mod_wsgi*
+
+\\
+
+Now that Apache has got wsgi in its body, its still not activated and configured yet. There is a good documentation for integrating mod_wsgi with Apache here [[http://code.google.com/p/modwsgi/wiki/IntegrationWithWebPy]] (Though it didn't work for me, I got to know a lot from this)\\
+. I am going to share the things which worked for me.
+
+\\
+
+First, *enabling mod_wsgi*. Find the list of lines beginning with LoadModule in httpd.conf and insert this line there.
+
+**
+
+*LoadModule wsgi_module modules/mod_wsgi.so*
+
+\\
+
+This is how it looks in my httpd.conf
+
+#+begin_quote
+
+...
+
+LoadModule wsgi_module modules/mod_wsgi.so\\
+LoadModule authn_file_module modules/mod_authn_file.so\\
+​#LoadModule authn_dbm_module modules/mod_authn_dbm.so\\
+​#LoadModule authn_anon_module modules/mod_authn_anon.so
+
+...
+#+end_quote
+
+In that file, whatever line begins with a hash symbol (#) is a commented line. This will let Apache know that, its armed with wsgi module now. Whenever I restart my apache, I get this line in the error_log file. 
+
+#+begin_quote
+
+AH00489: Apache/2.4.3 (Unix) mod_wsgi/3.4 Python/2.7.3 configured -- resuming normal operations
+#+end_quote
+
+next, *configuring application's URL.* Find the tag <IfModule alias_module>...</IfModule> and insert the following lines in that tag.
+
+#+begin_quote
+
+WSGIScriptAlias /testapp "/home/myhome/testapp/app.py"\\
+Alias /testapp/static "/home/myhome/testapp/static/"
+#+end_quote
+
+You can read about what WSGIScriptAlias means here [[http://code.google.com/p/modwsgi/wiki/ConfigurationDirectives#WSGIScriptAlias]]. Basically we map the user's request to the files which serve them. For example, when a request is made for http://localhost/testapp, Apache will execute /home/myhome/testapp/app.py and return the result. /home/myhome/testapp/is the directory where the web.py application is kept.
+
+\\
+
+Now that we have instructed Apache to treat the requests to /testapp with app.py which is a wsgi script, we need to define permissions and options for the physical directory in which it is stored.
+
+#+begin_quote
+
+<Directory "/home/myhome/testapp/">\\
+   Options +ExecCGI +FollowSymLinks +Indexes\\
+   Order allow,deny\\
+   Allow from all\\
+   Require all granted\\
+   AddHandler wsgi-script .py\\
+</Directory>
+#+end_quote
+
+You can read about each and every option mentioned, here [[http://httpd.apache.org/docs/2.2/mod/core.html#directory]]. With the AddHandler wsgi-script .py line, we tell Apache that, treat only the .py files as wsgi scripts. I spent an hour at this point. Instead of AddHandler line, I had "SetHandler wsgi-scirpt". That made Apache to treat even image files, css, java script files as wsgi scripts. So, Apache tried to compile each and every file and throwing internal error.
+
+\\
+
+That's it. We are pretty much done with the Apache configuration. :) But that's not the end of it. 
+
+\\
+
+The sample code.py file given here [[http://webpy.org/cookbook/mod_wsgi-apache]] would work perfectly. It imports nothing, no templates and so, no confusions. But practical applications might not be like that.
+
+\\
+
+The code in app.py file, with which I tested my application was like this
+
+#+begin_quote
+
+import web, urls\\
+app = web.application(urls.urls, globals())\\
+app.run()
+#+end_quote
+
+but when I deployed with wsgi enabled, it became this
+
+#+begin_quote
+
+import web, os, sys
+
+<<LC2>>
+
+<<LC2>>
+ 
+
+<<LC2>>
+root = os.path.join(os.path.dirname(__file__)+"/")
+
+<<LC3>>
+sys.path.insert(0, root)
+
+<<LC4>>
+templates = os.path.join(os.path.dirname(__file__)+"/templates/")
+
+<<LC5>>
+sys.path.insert(1, templates)
+
+<<LC6>>
+os.chdir(root)
+
+<<LC6>>
+
+<<LC7>>
+ 
+
+<<LC7>>
+import urls
+
+<<LC7>>
+ 
+
+<<LC12>>
+app = web.application(urls.urls, globals())
+
+<<LC14>>
+application = app.wsgifunc()
+#+end_quote
+
+<<LC14>>
+
+Basically the application is unable to understand no directory even the current directory. So everything has to be added to the sys.path manually. Notice that, without these path changes to sys, it was not even able to recognize the urls module which was in the same directory as the app.py. And whenever templates are used, we cannot use relative locations like this
+
+#+begin_quote
+
+render = web.template.render('templates/')
+#+end_quote
+
+We need to get the physical location of the templates directory like this
+
+#+begin_quote
+
+<<LC4>>
+templates = os.path.join(os.path.dirname(__file__)+"/templates/")
+#+end_quote
+
+<<LC4>>
+
+and use it in the render like this
+
+#+begin_quote
+
+render = web.template.render(templates)
+#+end_quote
+
+That's all, I have to say. Good luck :)
+
+\\
+
+\\

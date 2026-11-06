@@ -1,0 +1,67 @@
+---
+title: "Infix Expression to Postfix (RPN) Expression Conversion - SPOJ - ONP"
+description: "SPOJ problem ONP - Transform algebraic expressions with brackets into Reverse Polish Notation (RPN). Uses a stack-based algorithm to convert infix expressions to postfix for easier evaluation."
+date: 2012-10-21T17:46:00+05:30
+tags:
+  - "SPOJ"
+  - "Sport Programming"
+aliases:
+  - "/2012/10/21/infix-expression-to-postfix-rpn/"
+  - "/2012/10/21/infix-expression-to-postfix-rpn.html"
+  - "/2012/10/infix-expression-to-postfix-rpn/"
+  - "/2012/10/infix-expression-to-postfix-rpn.html"
+---
+
+This was one of our lab exercises in my Engineering first year. That was Data Structures lab. Guess what, this program was agreed as the toughest program of all the programs, by the whole class (our class strength was 63), which we were supposed to finish in that semester and the teacher had the whole program written on the blackboard and later we typed, compiled and executed on the computers. I remember the days, in which I used to memorize the program which solved the same problem for the lab exams. Nostalgic!!! Now, this took me lesser than 15 minutes to get "accepted" in SPOJ :)
+
+\\
+
+Here is the problem statement, as stated in SPOJ ([[http://www.spoj.pl/problems/ONP/]]). My solution to the same [[http://ideone.com/wCfryC]]
+
+\\
+
+Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, *, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a*b*c).
+
+*** Input
+:PROPERTIES:
+:CUSTOM_ID: input
+:END:
+
+#+BEGIN_EXAMPLE
+t [the number of expressions <= 100]
+expression [length <= 400]
+[other expressions]
+#+END_EXAMPLE
+
+Text grouped in [ ] does not appear in the input file.
+
+*** Output
+:PROPERTIES:
+:CUSTOM_ID: output
+:END:
+
+#+BEGIN_EXAMPLE
+The expressions in RPN form, one per line.
+#+END_EXAMPLE
+
+*** Example
+:PROPERTIES:
+:CUSTOM_ID: example
+:END:
+
+#+BEGIN_SRC js
+Input:
+3
+(a+(b*c))
+((a+b)*(z+x))
+((a+t)*((b+(a+c))^(c+d)))
+
+Output:
+abc*+
+ab+zx+*
+at+bac++cd+^*
+#+END_SRC
+
+#+BEGIN_EXPORT html
+<script type="text/javascript" src="http://ideone.com/api/embed.js/link/wCfryC"></script>
+#+END_EXPORT

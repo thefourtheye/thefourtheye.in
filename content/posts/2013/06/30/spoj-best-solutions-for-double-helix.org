@@ -1,0 +1,19 @@
+---
+title: "SPOJ Best Solutions for The Double Helix"
+description: "Celebrates the author's Python solution being featured in SPOJ's Top 20 for The Double Helix problem. A competitive programming milestone."
+date: 2013-06-30T18:08:00+05:30
+tags:
+  - "SPOJ"
+  - "Python"
+  - "Sport Programming"
+aliases:
+  - "/2013/06/30/spoj-best-solutions-for-double-helix/"
+  - "/2013/06/30/spoj-best-solutions-for-double-helix.html"
+  - "/2013/06/spoj-best-solutions-for-double-helix/"
+  - "/2013/06/spoj-best-solutions-for-double-helix.html"
+---
+
+Unforgettable day. Got my solution featured, as one of the best Python solutions to "[[http://www.spoj.com/problems/ANARC05B/][The Double Helix]]" problem.\\
+\\
+
+[[http://1.bp.blogspot.com/-wzk1jclGSXQ/UdAmerJssFI/AAAAAAAABYk/pb3O4uzgCmk/s1280/SPOJ+Top+20.png][[[http://1.bp.blogspot.com/-wzk1jclGSXQ/UdAmerJssFI/AAAAAAAABYk/pb3O4uzgCmk/s1280/SPOJ+Top+20.png]​​]]]

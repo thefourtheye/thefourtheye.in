@@ -1,0 +1,109 @@
+---
+title: "Project Euler - Problem 5 - Smallest multiple"
+description: "Project Euler Problem 5 - Smallest Multiple. Finds the smallest number divisible by all numbers 1-20. Compares brute force approach to optimized LCM-based solution using GCD."
+date: 2013-06-15T13:05:00+05:30
+tags:
+  - "Project Euler"
+  - "Mathematics"
+  - "Sport Programming"
+aliases:
+  - "/2013/06/15/Project-Euler-Problem-5-Smallest-multiple/"
+  - "/2013/06/15/Project-Euler-Problem-5-Smallest-multiple.html"
+  - "/2013/06/Project-Euler-Problem-5-Smallest-multiple/"
+  - "/2013/06/Project-Euler-Problem-5-Smallest-multiple.html"
+  - "/2013/06/15/project-euler-problem-5-smallest-multiple/"
+  - "/2013/06/15/project-euler-problem-5-smallest-multiple.html"
+  - "/2013/06/project-euler-problem-5-smallest-multiple/"
+  - "/2013/06/project-euler-problem-5-smallest-multiple.html"
+---
+
+Today I came across this interesting problem. [[http://projecteuler.net/problem=5][Project Euler's Problem 5 - Smallest Multiple]].\\
+\\
+
+#+BEGIN_EXAMPLE
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+#+END_EXAMPLE
+
+\\
+Definitely 20! (factorial of 20) is one, which will be evenly divisible by all of the numbers from 1 to 20. But the problem is to find the *smallest* positive number. So, I thought, it would be the number which is the product of all the prime numbers within 20. I calculated ~2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 = 9699690~, which is wrong, since a number divisible by 2 might not be divisible by 4 and the same applies for other prime numbers and their multiples. After little thinking, I couldn't get a way to find the solution. So I applied brute force and my solution got accepted.\\
+\\
+
+** Brute Force Solution
+:PROPERTIES:
+:CUSTOM_ID: brute-force-solution
+:END:
+\\
+
+#+BEGIN_SRC python
+i = 21
+while True:
+    flag = True
+    for X in xrange(1, 21):
+        if (i % X != 0):
+            flag = False
+            break
+    if flag:
+        print i
+        break
+    i += 1
+#+END_SRC
+
+\\
+But the problem with this solution is, the time taken to produce the result. It took 162 seconds or 2 minutes and 32 seconds. I wondered if I can improve my solution to produce solution in a reasonable amount of time. I couldn't, so I googled and got this [[http://stackoverflow.com/a/13765976/1903116][page]]. Its high school maths.\\
+\\
+
+** Optimized Solution
+:PROPERTIES:
+:CUSTOM_ID: optimized-solution
+:END:
+\\
+
+** LCM
+:PROPERTIES:
+:CUSTOM_ID: lcm
+:END:
+Least Common Divisor (LCM) of numbers A and B, is a number which is the least number divisible by both A & B. Moreover LCM (A, B, C) = LCM (LCM (A, B), C) and so on.\\
+\\
+
+** Relation between LCM and GCD
+:PROPERTIES:
+:CUSTOM_ID: relation-between-lcm-and-gcd
+:END:
+~LCM(A,B) = (A * B)/GCD(A*B)~\\
+\\
+
+** Recursive Euclid's algorithm for GCD
+:PROPERTIES:
+:CUSTOM_ID: recursive-euclids-algorithm-for-gcd
+:END:
+****** Base Condition
+:PROPERTIES:
+:CUSTOM_ID: base-condition
+:END:
+~GCD(A, 0) = A~\\
+
+****** Recurrence Relation
+:PROPERTIES:
+:CUSTOM_ID: recurrence-relation
+:END:
+~GCD(A, B) = GCD (B, A mod B)~\\
+\\
+So I modified my code like this and it produced the solution within 1 second.\\
+\\
+
+#+BEGIN_SRC python
+def GCD(M, N):
+    while (N != 0):
+        M, N = N, M % N
+    return M
+
+LCM = 1
+for X in xrange(1, 21):
+    LCM = (X * LCM)/GCD(X, LCM)
+print LCM
+#+END_SRC
+
+\\
+\\

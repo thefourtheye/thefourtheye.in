@@ -1,0 +1,43 @@
+---
+title: "Compiling C++11 Programs with Sublime Text 3"
+description: "Configure Sublime Text 3 on Ubuntu to compile C++11 programs by creating a custom build file with -std=c++0x flag for g++."
+date: 2013-07-21T16:41:00+05:30
+tags:
+  - "Ubuntu"
+  - "Sublime"
+aliases:
+  - "/2013/07/21/Compiling-Cpp-11-Programs-with-Sublime-Text-3/"
+  - "/2013/07/21/Compiling-Cpp-11-Programs-with-Sublime-Text-3.html"
+  - "/2013/07/Compiling-Cpp-11-Programs-with-Sublime-Text-3/"
+  - "/2013/07/Compiling-Cpp-11-Programs-with-Sublime-Text-3.html"
+  - "/2013/07/21/compiling-cpp-11-programs-with-sublime-text-3/"
+  - "/2013/07/21/compiling-cpp-11-programs-with-sublime-text-3.html"
+  - "/2013/07/compiling-cpp-11-programs-with-sublime-text-3/"
+  - "/2013/07/compiling-cpp-11-programs-with-sublime-text-3.html"
+---
+
+For *Windows 7*, you may want to read this post [[http://www.thefourtheye.in/2013/07/Compiling-Node.js-scripts-in-Windows-7-with-Sublime-Text-3.html]]\\
+
+Today I installed Sublime Text 3's public beta on my Ubuntu 13 and the first thing I noticed is, the inability to compile C++ 11 programs. The obvious problem is, it was missing ~-std=c++0x~ parameter to g++. I tried to figure out how to edit the build parameters of Sublime. After an hour's struggle managed to figure out.\\
+
+You need to create the following file =~/.config/sublime-text-3/Packages/C++/C++.sublime-build=. The =~= refers to the home directory of the current user.\\
+Now insert the below seen text to that file\\
+
+#+BEGIN_SRC json
+{
+ "cmd": ["g++", "-std=c++0x", "${file}", "-o", "${file_path}/${file_base_name}"],
+ "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+ "working_dir": "${file_path}",
+ "selector": "source.c, source.c++",
+ "variants":
+ [
+   {
+     "name": "Run",
+     "cmd":["bash", "-c", "g++ -std=c++0x '${file}' -o '${file_path}/${file_base_name}' && '${file_path}/${file_base_name}'"]
+   }
+ ]
+}
+#+END_SRC
+
+Save this file and close it. Sublime will pick up the changes immediately.\\
+This will take care of compiling C++ 11 programs.

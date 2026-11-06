@@ -1,0 +1,83 @@
+---
+title: "Sublime Configuring CodeIntel Auto Completion"
+description: "Guide to install and configure SublimeCodeIntel for intelligent code completion in Sublime Text. Covers Package Control installation and per-language configuration."
+date: 2013-05-25T12:54:00+05:30
+tags:
+  - "Sublime"
+aliases:
+  - "/2013/05/25/sublime-configuring-codeintel/"
+  - "/2013/05/25/sublime-configuring-codeintel.html"
+  - "/2013/05/sublime-configuring-codeintel/"
+  - "/2013/05/sublime-configuring-codeintel.html"
+---
+
+Unarguably Sublime is one of the best text editors and with its ability to extend with python scripts, gifts itself a lot of power. Here lets see one of those extensions which allow code completion. Normally, sublime provides code completion for the words in the current file being edited. Codeintel allows the user to get code completion feature of the respective languages.\\
+\\
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+Lets install CodeIntel, through Package Control plugin. To install Package Control plugin, do the following steps. Here is the author's [[http://wbond.net/sublime_packages/package_control/installation][page]]. Quoting from the source website\\
+\\
+
+#+begin_quote
+Installation is through the Sublime Text 2 console. This is accessed via the ctrl+` shortcut. Once open, paste the following command into the console.\\
+\\
+
+import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print('Please restart Sublime Text to finish installation')
+#+end_quote
+
+\\
+After installing it, Press Shift+Ctrl+P or click on Tools->Command Palette. In the window that opens up, type Install Package. In the text box which you see after that, type SublimeCodeIntel and click on it to install it. You are done with the installation of CodeIntel.\\
+\\
+** Configuration
+:PROPERTIES:
+:CUSTOM_ID: configuration
+:END:
+The following information is taken from the README.rst file. Open ~/.codeintel/config file in your favourite text editor, most likely Sublime. Pick your language from the list below and copy paste only the blocks for the languages of your choice.\\
+\\
+
+#+BEGIN_SRC json
+    {
+        "PHP": {
+            "php": '/usr/bin/php',
+            "phpExtraPaths": [],
+            "phpConfigFile": 'php.ini'
+        },
+        "JavaScript": {
+            "javascriptExtraPaths": []
+        },
+        "Perl": {
+            "perl": "/usr/bin/perl",
+            "perlExtraPaths": []
+        },
+        "Ruby": {
+            "ruby": "/usr/bin/ruby",
+            "rubyExtraPaths": []
+        },
+        "Python": {
+            "python": '/usr/bin/python',
+            "pythonExtraPaths": []
+        },
+        "Python3": {
+            "python": '/usr/bin/python3',
+            "pythonExtraPaths": []
+        }
+    }
+#+END_SRC
+
+\\
+For example, I like to use python and my config file looks like this\\
+
+#+BEGIN_SRC json
+{
+ "Python": {
+     "python": '/usr/bin/python',
+     "pythonExtraPaths": []
+ },
+}
+#+END_SRC
+
+\\
+Thats it. Restart your sublime, type code and press Alt + / to see the Auto completion at work.\\
+\\

@@ -1,0 +1,30 @@
+---
+title: "PuttY style word selection in xfce4-terminal"
+description: "Configure XFCE4 terminal to support Putty-style word selection on double-click. Shows the regex pattern to add in Advanced preferences: -A-Za-z0-9./?_~"
+date: 2013-04-25T16:56:00+05:30
+tags:
+  - "Ubuntu"
+aliases:
+  - "/2013/04/25/putty-style-word-selection-in-xfce4-terminal/"
+  - "/2013/04/25/putty-style-word-selection-in-xfce4-terminal.html"
+  - "/2013/04/putty-style-word-selection-in-xfce4-terminal/"
+  - "/2013/04/putty-style-word-selection-in-xfce4-terminal.html"
+---
+
+For all those who have made themselves comfortable with PuttY software, word selection by double clicking in xfce4-terminal would be difficult to get used to.\\
+\\
+So they can follow these steps to use PuttY style word selection.\\
+\\
+1. Right click anywhere inside xfce4-terminal and select Preferences\\
+   \\
+2. Select the Advanced tab\\
+   \\
+3. Paste the following text in the box below "Double Click" section
+
+#+BEGIN_SRC text
+-A-Za-z0-9./?_~
+#+END_SRC
+
+\\
+That's it. Enjoy PuttY style word selection on xfce4-terminal :)\\
+\\

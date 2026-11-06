@@ -1,0 +1,102 @@
+---
+title: "File Upload with jQuery and Ajax"
+description: "Upload files via jQuery AJAX using FormData object. Shows proper configuration with contentType and processData set to false for multipart form handling."
+date: 2013-10-27T16:30:00+05:30
+tags:
+  - "jQuery"
+aliases:
+  - "/2013/10/27/file-upload-with-jquery-and-ajax/"
+  - "/2013/10/27/file-upload-with-jquery-and-ajax.html"
+  - "/2013/10/file-upload-with-jquery-and-ajax/"
+  - "/2013/10/file-upload-with-jquery-and-ajax.html"
+---
+
+The requirement is simple. I should be able to upload files to the server with jQuery and ajax. Lets get started.\\
+
+#+BEGIN_SRC html
+<html>
+   <form>
+     File Description:<input type="text" id="desc" />
+     Choose File:<input type="file" id="chosenFile" />
+     <input type="button" id="submitFile" value="submitTheFile" />
+   </form>
+</html>
+#+END_SRC
+
+Now, the real jQuery stuff\\
+
+#+BEGIN_SRC js
+<script type="text/javascript">
+    jQuery.noConflict();
+    jQuery(document).ready(function() {
+        jQuery("#submitFile").click(function() {
+            jQuery.ajax({
+                url: "[url to be submitted to]",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: function() {
+                    var data = new FormData();
+                    data.append("fileDescription", jQuery("#desc").val());
+                    data.append("chosenFile", jQuery("#chosenFile").get(0).files[0]);
+                    return data;
+                    // Or simply return new FormData(jQuery("form")[0]);
+                }(),
+                error: function(_, textStatus, errorThrown) {
+                    alert("Error");
+                    console.log(textStatus, errorThrown);
+                },
+                success: function(response, textStatus) {
+                    alert("Success");
+                    console.log(response, textStatus);
+                }
+            });
+        });
+    });
+<script>
+#+END_SRC
+
+Important things to be noted here are\\
+
+#+BEGIN_SRC js
+contentType: false,
+                processData: false,
+#+END_SRC
+
+=contentType= will be determined automatically, so we don't have to set that explicitly and =processData= has to be false, otherwise the data will be processed and transformed into a query string, fitting to the default content-type "application/x-www-form-urlencoded". Next important thing is\\
+
+#+BEGIN_SRC js
+data: function() {
+                    var data = new FormData();
+                    data.append("fileDescription", jQuery("#desc").val());
+                    data.append("chosenFile", jQuery("#chosenFile").get(0).files[0]);
+                    return data;
+                    // Or simply return new FormData(jQuery("form")[0]);
+                }(),
+#+END_SRC
+
+You can read about FormData [[https://developer.mozilla.org/en-US/docs/Web/API/FormData][here]]. We basically set the values being submitted. The first parameter is the key and the second parameter is the actual value to be passed. We can get the value of any form field with
+
+#+BEGIN_SRC js
+jQuery("#desc").val()
+#+END_SRC
+
+expect the files. If we use the same for files, we ll get just the file name instead of the file contents. So, we have to do something like
+
+#+BEGIN_SRC js
+jQuery("#chosenFile").get(0).files[0]
+#+END_SRC
+
+If we dont want to set individual values and want to pass all the fields in the form, we can simply do
+
+#+BEGIN_SRC js
+data: new FormData(jQuery("form")[0])
+#+END_SRC
+
+Thats it. Enjoy Ajaxified file upload :)\\
+*References:*\\
+
+- [[https://developer.mozilla.org/en-US/docs/Web/API/FormData][FormData]]
+- [[https://developer.mozilla.org/en-US/docs/Web/API/File][File]]
+- [[https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications][Using files from web applications]]
+- [[https://developer.mozilla.org/en-US/docs/Web/Guide/Using_FormData_Objects][Using FormData Objects]]

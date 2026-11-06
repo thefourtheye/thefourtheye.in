@@ -1,0 +1,54 @@
+---
+title: "MongoDB Miscellaneous"
+description: "Quick reference for MongoDB queries: date-based queries using ISODate, counting with length, finding distinct values, and sorting results with pymongo."
+date: 2013-04-25T16:16:00+05:30
+tags:
+  - "MongoDB"
+aliases:
+  - "/2013/04/25/mongodb-miscellaneous/"
+  - "/2013/04/25/mongodb-miscellaneous.html"
+  - "/2013/04/mongodb-miscellaneous/"
+  - "/2013/04/mongodb-miscellaneous.html"
+---
+
+Querying based on Date & Time\\
+
+#+BEGIN_SRC javascript
+   db.[Colletion].find ({Date:ISODate('2013-04-22T00:00:00Z')})
+#+END_SRC
+
+\\
+Equivalent of Oracle's Count function\\
+
+#+BEGIN_SRC javascript
+   db.[Collection].find ({'FieldName':'value').length
+#+END_SRC
+
+\\
+Find distinct values of a column, after Querying\\
+
+#+BEGIN_SRC javascript
+   db.[Collection].distinct ('ColumnName', {'SearchColumnName' : 'SearchValue'})
+#+END_SRC
+
+\\
+Number of distinct values\\
+
+#+BEGIN_SRC javascript
+   db.[Collection].distinct ('ColumnName').length
+#+END_SRC
+
+\\
+Sorting the returned result with pymongo\\
+
+#+BEGIN_SRC javascript
+  db.[Collection].find().sort (
+  [
+   ("FieldName1", pymongo.DESCENDING),
+   ("FieldName2", pymongo.DESCENDING),
+   ("FieldName3", pymongo.ASCENDING),
+  ])
+#+END_SRC
+
+\\
+\\

@@ -1,0 +1,88 @@
+---
+title: "Ubuntu Screen Custom Resolution"
+description: "Explains how to add custom screen resolutions in Ubuntu using xrandr. Shows the --newmode, --addmode, and --output commands to set non-standard resolutions like 1600x900."
+date: 2013-04-25T09:12:00+05:30
+tags:
+  - "Ubuntu"
+aliases:
+  - "/2013/04/25/ubuntu-screen-custom-resolution/"
+  - "/2013/04/25/ubuntu-screen-custom-resolution.html"
+  - "/2013/04/ubuntu-screen-custom-resolution/"
+  - "/2013/04/ubuntu-screen-custom-resolution.html"
+---
+
+Configuring the screen resolution to custom value in Ubuntu was a big headache to me. With most of the monitors I was not able to change the resolution to something of my choice, apart from what is listed in the Display settings. Then I found the following way.\\
+\\
+First, lets see how to get to know the list of displays attached to Ubuntu\\
+\\
+
+#+BEGIN_SRC shell
+~$ xrandr
+Screen 0: minimum 8 x 8, current 2881 x 1280, maximum 16384 x 16384
+VGA-0 connected 1600x1280+1281+0 (normal left inverted right x axis y axis) 376mm x 301mm
+   1280x1024      60.0*+   75.0
+   1152x864       75.0
+   1024x768       75.0     60.0
+   800x600        75.0     60.3
+   640x480        75.0     59.9
+LVDS-0 connected (normal left inverted right x axis y axis)
+   1600x900       60.0 +   40.0
+DP-0 connected 1280x1024+0+0 (normal left inverted right x axis y axis) 376mm x 301mm
+   1280x1024      60.0*+   75.0
+   1152x864       75.0
+   1024x768       75.0     60.0
+   800x600        75.0     60.3
+   640x480        75.0     59.9
+DP-1 disconnected (normal left inverted right x axis y axis)
+HDMI-0 disconnected (normal left inverted right x axis y axis)
+DP-2 disconnected (normal left inverted right x axis y axis)
+DP-3 disconnected (normal left inverted right x axis y axis)
+~$
+#+END_SRC
+
+This is what I got on my machine. And following are the display names as per Ubuntu.\\
+
+#+BEGIN_SRC text
+VGA-0
+LVDS-0
+DP-0
+#+END_SRC
+
+Now to set the resolution 1600x900 on VGA-0, I would execute the following\\
+\\
+
+#+BEGIN_SRC shell
+xrandr --newmode "1600x900_60.00"  118.25  1600 1696 1856 2112  900 903 908 934 -hsync +vsync
+xrandr --addmode VGA-0 "1600x900_60.00"
+xrandr --output VGA-0 --mode "1600x900_60.00"
+#+END_SRC
+
+\\
+
+#+begin_quote
+First command creates a new mode with resolution 1600x900
+#+end_quote
+
+#+begin_quote
+Second command makes it available for use, with display (in this case VGA-0)
+#+end_quote
+
+#+begin_quote
+Third command selects the newly added mode as the display resolution for the specified display
+#+end_quote
+
+\\
+We see that, the first line has lot of numbers. To come up with those numbers, there is a helper tool called *cvt*. It takes width and height as inputs.\\
+\\
+
+#+BEGIN_SRC shell
+~$ cvt 1600 1280
+# 1600x1280 59.92 Hz (CVT 2.05M4) hsync: 79.51 kHz; pclk: 171.75 MHz
+Modeline "1600x1280_60.00"  171.75  1600 1712 1880 2160  1280 1283 1290 1327 -hsync +vsync
+~$
+#+END_SRC
+
+\\
+*To change this to any custom resolution*, just replace *Modeline* in the output of cvt with *xrandr --newmode*. Thats it. Enjoy :)\\
+\\
+\\

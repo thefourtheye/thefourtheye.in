@@ -1,0 +1,79 @@
+---
+title: "Node.js - modules and exports"
+description: "Understanding Node.js module system - explains the difference between module.exports and exports, and why reassigning exports breaks the reference to module.exports."
+date: 2014-03-01T09:26:00+05:30
+tags:
+  - "JavaScript"
+  - "Node.js"
+aliases:
+  - "/2014/03/01/nodejs-modules-and-exports/"
+  - "/2014/03/01/nodejs-modules-and-exports.html"
+  - "/2014/03/nodejs-modules-and-exports/"
+  - "/2014/03/nodejs-modules-and-exports.html"
+---
+
+I think most of us haven't understood the concept of modules in Node.js properly. Let us discuss the basics of that in this post.
+
+** Module System
+:PROPERTIES:
+:CUSTOM_ID: module-system
+:END:
+In Node.js, when you create a new JavaScript file, that will be considered as a separate module. Inside that module, you can access the module itself with =module= object. You can check that, like this
+
+#+BEGIN_SRC js
+console.log(module);
+#+END_SRC
+
+which produces something like this\\
+
+#+BEGIN_SRC js
+{ id: '.',
+  exports: {},
+  parent: null,
+  filename: '/home/thefourtheye/Desktop/Test.js',
+  loaded: false,
+  children: [],
+  paths:
+   [ '/home/thefourtheye/Desktop/node_modules',
+     '/home/thefourtheye/node_modules',
+     '/home/node_modules',
+     '/node_modules' ] }
+#+END_SRC
+
+** exports and module.exports
+:PROPERTIES:
+:CUSTOM_ID: exports-and-module.exports
+:END:
+As you can see, it is just a plain JavaScript object. The important thing to be noted here is, [[http://nodejs.org/api/modules.html#modules_module_exports][the exports object in module]]. In every module, JavaScript, by default, offers another variable called [[http://nodejs.org/api/modules.html#modules_exports_alias][exports]]. That is nothing but the same object in module object of the same name. You can check that like this
+
+#+BEGIN_SRC js
+exports.jabberwocky = "blah blah blah";
+console.log(module.exports);            // { jabberwocky: 'blah blah blah' }
+#+END_SRC
+
+So, they are one and the same. But, when some other module requires this module, the object returned will be module.exports only. As long as you are augmenting module.exports and exports, there will be no problem. But when you assign something to either exports or module.exports, they no longer refer to the same object.
+
+#+BEGIN_SRC js
+exports = {"king": "Sourav Ganguly"};
+console.log(module.exports);           // {}
+console.log(exports);                  // { king: 'Sourav Ganguly' }
+#+END_SRC
+
+You are making both exports and module.exports refer to different objects. So, when this module is exported, an empty object will be exported (remember, *only module.exports will be exported when required from other files*), even though we assigned a valid object to exports. So, care should be taken when you replace either of those objects. That is the reason why we often see something like this
+
+#+BEGIN_SRC js
+exports = module.exports = ...
+#+END_SRC
+
+** Scope
+:PROPERTIES:
+:CUSTOM_ID: scope
+:END:
+All the variables and functions declared within the module will be accessible only inside the module (as long as they are created with var keyword). Quoting from the [[http://nodejs.org/api/modules.html#modules_modules][modules documentation]]
+
+#+begin_quote
+Variables local to the module will be private, as though the module was wrapped in a function.
+#+end_quote
+
+Happy modularizing the code :)\\
+\\

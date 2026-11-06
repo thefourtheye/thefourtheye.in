@@ -1,0 +1,57 @@
+---
+title: "Google Code Jam 2013 - Round 1B - Osmos"
+description: "Google Code Jam 2013 Round 1B Osmos problem solution. Uses greedy algorithm with the ability to grow (add to your size) or remove enemies to find minimum changes needed."
+date: 2013-05-08T08:21:00+05:30
+tags:
+  - "Google Code Jam"
+  - "Sport Programming"
+aliases:
+  - "/2013/05/08/google-code-jam-2013-round-1b-osmos/"
+  - "/2013/05/08/google-code-jam-2013-round-1b-osmos.html"
+  - "/2013/05/google-code-jam-2013-round-1b-osmos/"
+  - "/2013/05/google-code-jam-2013-round-1b-osmos.html"
+---
+
+Today, I would like to share my solution to the Google Code Jam 2013's Round 1B's Osmos problem. These are the statistics for that problem\\
+
+#+BEGIN_SRC text
+Small Input : 4668/7250 users correct (64%)
+Large Input : 3537/4578 users correct (77%)
+#+END_SRC
+
+I believe it was tricky enough for an easy problem. Many people have got atleast one wrong try. Here is how I solved it (I couldn't solve it during the contest).\\
+\\
+
+#+BEGIN_SRC cpp
+# include <iostream>
+# include <cstdio>
+# include <algorithm>
+
+using namespace std;
+int Sizes[101];
+int Total, A, N, Temp, Counter;
+int getDiff (int A, int B, int & C)
+{
+    while (A  CurrentScore)
+           return min (Solve (idx + 1, CurrentScore, Changes+1), Min1);
+        else return Min1;
+    }
+}
+int main()
+{
+    //freopen ("Input.txt", "r", stdin);
+    //freopen ("Scratch.txt", "w", stdout);
+    scanf ("%d", &Total);
+    for (int i = 1; i <= Total; i++)
+    {
+        scanf ("%d%d", &A, &N);
+        Temp = A;
+        Counter = 0;
+        for (int j = 0; j < N; j++) scanf ("%d", &Sizes[j]);
+        sort (Sizes, Sizes + N);
+        printf ("Case #%d: %d\n", i, Solve (0, A, 0));
+    }
+}
+#+END_SRC
+
+Here is the ideone URL [[http://ideone.com/g5qxYd]] where I tested the program with Google's inputs.
