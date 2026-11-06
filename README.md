@@ -31,3 +31,9 @@ Uses `find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.*'` to explicitly ex
 - `static/Resume.tex` is newer than `static/Resume.pdf`
 
 This ensures pdflatex (heavy) runs minimally.
+
+## Deployment
+
+The site is deployed to GitHub Pages from the sibling
+`../thefourtheye.github.io` repository. Old URLs are handled by Hugo
+`aliases`, which generate small redirect pages in the output.
