@@ -4,8 +4,9 @@ Hugo-based blog for thefourtheye.in
 
 ## Prerequisites
 
-- Hugo (extended) with `postcss` on `PATH`; the theme's CSS is processed
-  through PostCSS during the build.
+- Hugo extended, version 0.138.0 or newer (tested with 0.168.0), with
+  `postcss` on `PATH`; the theme's CSS is processed through PostCSS during
+  the build.
 - Install PostCSS globally: `npm i -g postcss postcss-cli`
 - `pdflatex` for `make build` / `make deploy` (Resume compilation).
 
@@ -16,6 +17,7 @@ Hugo-based blog for thefourtheye.in
 | `make clean` | Remove `public/` directory (Hugo output) |
 | `make clean-deploy` | Remove all visible files/dirs in `../thefourtheye.github.io/` (preserves `.git`, `.gitignore`, etc.) |
 | `make build` | Build site with Hugo (compiles Resume.tex if changed) |
+| `make check` | Build in memory and fail on build errors |
 | `make test` | Clean and start Hugo dev server |
 | `make copy` | Copy built files from `public/` to `../thefourtheye.github.io/` |
 | `make deploy` | Full deploy: clean, build, clean-deploy, copy |

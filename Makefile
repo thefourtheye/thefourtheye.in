@@ -1,4 +1,4 @@
-.PHONY: help clean clean-deploy build test copy deploy spas-export
+.PHONY: help clean clean-deploy build check test copy deploy spas-export
 
 DEPLOY_DIR := ../thefourtheye.github.io
 
@@ -9,6 +9,7 @@ help:
 	@echo "  make clean        - Remove public/ directory (Hugo output)"
 	@echo "  make clean-deploy - Remove visible files in deploy dir, preserve hidden files"
 	@echo "  make build        - Build site with Hugo (compiles Resume.tex if changed)"
+	@echo "  make check        - Build in memory and fail on build errors"
 	@echo "  make test         - Clean and start Hugo dev server"
 	@echo "  make copy         - Copy built files to deploy directory"
 	@echo "  make deploy       - Full deploy: clean, build, clean-deploy, copy"
@@ -25,6 +26,9 @@ static/Resume.pdf: static/Resume.tex
 
 build: static/Resume.pdf
 	hugo
+
+check:
+	hugo --renderToMemory
 
 test: clean
 	hugo server
