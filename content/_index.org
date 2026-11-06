@@ -1,4 +1,5 @@
 #+TITLE: About Me
+#+DESCRIPTION: Sakthipriyan Vairamani (thefourtheye)'s Blog
 #+DATE: 2024-02-02T04:14:54-08:00
 #+DRAFT: false
 #+AUTHOR: thefourtheye
