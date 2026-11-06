@@ -4,9 +4,9 @@ Hugo-based blog for thefourtheye.in
 
 ## Prerequisites
 
-- Hugo extended, version 0.138.0 or newer (tested with 0.168.0), with
-  `postcss` on `PATH`; the theme's CSS is processed through PostCSS during
-  the build.
+- Hugo extended 0.168.0, pinned in `.tool-versions` (use `asdf` or `mise`
+  to install it). The theme needs 0.138.0 or newer. `postcss` must be on
+  `PATH`; the theme's CSS is processed through PostCSS during the build.
 - Install PostCSS globally: `npm i -g postcss postcss-cli`
 - `pdflatex` for `make build` / `make deploy` (Resume compilation).
 
