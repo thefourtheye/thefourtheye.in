@@ -3,7 +3,7 @@ title: "JavaScript lookbehind RegEx alternative"
 description: "Workaround for JavaScript's lack of regex lookbehind using a two-step replace-and-split approach with a marker character to match conditional commas."
 date: 2017-02-21T21:33:13+05:30
 tags:
-  - "javascript"
+  - "JavaScript"
   - "regex"
 aliases:
   - "/2017/02/21/javascript-lookbehind-regex-alternative/"

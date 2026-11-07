@@ -3,7 +3,7 @@ title: "JS Quirks: stringified numbers"
 description: "JavaScript quirk: stringified negative binary, octal, and hex numbers like '-0x1' return NaN when converted to numbers because only decimal literals can have signs per ECMAScript spec."
 date: 2016-11-15T00:38:30+05:30
 tags:
-  - "javascript"
+  - "JavaScript"
   - "quirks"
 aliases:
   - "/2016/11/15/js-quirks-stringified-numbers/"
