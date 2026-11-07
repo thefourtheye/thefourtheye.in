@@ -7,7 +7,7 @@ help:
 	@echo ""
 	@echo "Available targets:"
 	@echo "  make clean        - Remove public/ directory (Hugo output)"
-	@echo "  make clean-deploy - Remove visible files in deploy dir, preserve hidden files"
+	@echo "  make clean-deploy - Remove generated files in deploy dir, keep CNAME and static files"
 	@echo "  make build        - Build site with Hugo (compiles Resume.tex if changed)"
 	@echo "  make check        - Build in memory and fail on build errors"
 	@echo "  make test         - Clean and start Hugo dev server"
@@ -19,7 +19,7 @@ clean:
 
 clean-deploy:
 	test -d $(DEPLOY_DIR)/.git || { echo "$(DEPLOY_DIR) is not a git repo"; exit 1; }
-	cd $(DEPLOY_DIR) && find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.*' -exec rm -rf {} +
+	cd $(DEPLOY_DIR) && find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.*' ! -name CNAME ! -name _redirects ! -name googlef5ebd04b9fd1ae68.html ! -name keybase.txt ! -name Resume.pdf ! -name Resume.tex -exec rm -rf {} +
 
 static/Resume.pdf: static/Resume.tex
 	@cd static && pdflatex -interaction=nonstopmode Resume.tex && pdflatex -interaction=nonstopmode Resume.tex && rm -f Resume.aux Resume.log Resume.out
