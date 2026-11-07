@@ -34,7 +34,7 @@ test: clean
 	hugo server
 
 copy:
-	cp -r public/* $(DEPLOY_DIR)/
+	cp -r public/. $(DEPLOY_DIR)/
 
 deploy: clean build clean-deploy copy
 	@echo "Deploy complete"
